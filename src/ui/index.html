@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selector Explainer</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main role="main" class="Container">
+      <h1>Selectors Explained</h1>
+      <form id="form" class="Form">
+        <label for="selector" class="Label">⁉️ Selector</label>
+        <input
+          type="text"
+          name="selector"
+          id="selector"
+          required
+          class="Input"
+          placeholder="e.g. p.foo a[href]"
+          autofocus
+          aria-describedby="result"
+        />
+        <button type="submit" class="Button">Explain ✨</button>
+      </form>
+      <p id="result" class="Result"></p>
+    </main>
+
+    <footer role="contentinfo" class="Footer">
+      <p>
+        &copy; Made with
+        <span role="img" aria-label="love">💖</span> by
+        <a
+          href="https://hugogiraudel.com"
+          rel="noopener noreferrer"
+          target="_blank"
+          >Hugo “Kitty” Giraudel</a
+        >
+      </p>
+    </footer>
+
+    <script src="./bundle.js"></script>
+    <script>
+      const $form = document.querySelector('#form')
+      const $selector = document.querySelector('#selector')
+      const $result = document.querySelector('#result')
+
+      const capitalise = value =>
+        value.slice(0, 1).toUpperCase() + value.slice(1)
+
+      const asHTML = value =>
+        value
+          // Make sure tag names are properly displayed and not rendered as HTML
+          .replace(/</g, '‘&lt;')
+          .replace(/>/g, '&gt;’')
+
+          // Wrap emphases with <code> elements for clarity
+          .replace(/‘/g, '<code>')
+          .replace(/’/g, '</code>')
+
+          // Insert line breaks for readability
+          .replace(/([^yf]) within/g, (...args) => `${args[1]}<br>… within`)
+          .replace(/([^y]) after/g, (...args) => `${args[1]}<br>… after`)
+          .replace(/of/g, '<br>… of')
+          .replace(/itself/g, '<br>… itself')
+          .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
+
+      const asSentence = value => capitalise(value) + '.'
+
+      form.addEventListener('submit', event => {
+        event.preventDefault()
+
+        try {
+          $result.innerHTML = asHTML(asSentence(explain(selector.value)))
+        } catch (error) {
+          $result.innerText = asSentence(error.message)
+        }
+      })
+    </script>
+  </body>
+</html>
