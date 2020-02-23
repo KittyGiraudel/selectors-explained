@@ -23,8 +23,8 @@ var explain = (function () {
     // 'focus-within': 'focus-within',
     // 'host': 'host',
     hover: 'hovered',
-    // 'indeterminate': 'indeterminate',
-    // 'in-range': 'in-range',
+    indeterminate: 'indeterminate',
+    'in-range': 'in-range',
     invalid: 'invalid',
     'last-child': 'the last child of its parent',
     'last-of-type': 'the last of its type in its parent',
@@ -40,7 +40,7 @@ var explain = (function () {
     // 'past': 'past',
     // 'placeholder-shown': 'placeholder-shown',
     'read-only': 'read-only',
-    // 'read-write': 'read-write',
+    'read-write': 'read-write',
     required: 'required',
     // 'right': 'right',
     // 'root': 'root',
@@ -106,9 +106,9 @@ var explain = (function () {
       case '$=':
         return 'ends with ' + value
       case '~=':
-        return 'is a space-separated list of values, one of them being ' + value
+        return 'is a space-separated list of values, one of which is ' + value
       case '|=':
-        return 'is an hyphen-separated list of values, one of them being ' + value
+        return 'is an hyphen-separated list of values, one of which is ' + value
     }
   };
 
