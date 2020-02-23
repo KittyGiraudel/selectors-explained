@@ -5,7 +5,7 @@ export default {
   input: 'src/index.js',
   output: {
     name: 'explain',
-    file: 'src/ui/bundle.js',
+    file: 'ui/bundle.js',
     format: 'iife',
   },
   plugins: [commonjs(), resolve()],
