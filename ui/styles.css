@@ -2,17 +2,12 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 html {
   background-image: linear-gradient(315deg, #22035c 0%, #510469 74%);
   color: white;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -22,17 +17,59 @@ body {
     sans-serif;
 }
 
+@media (min-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
 .Container {
   margin: auto;
   font-size: 130%;
   padding: 1em;
+}
+
+.Main {
   width: 600px;
   max-width: 100%;
 }
 
-h1 {
-  font-family: 'Comfortaa';
+.Header {
   text-align: center;
+  padding-bottom: 2em;
+  margin-bottom: 1.25em;
+  position: relative;
+}
+
+.Header::after {
+  content: '';
+  position: absolute;
+  width: 10em;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 20, 147, 0),
+    deeppink,
+    rgba(255, 20, 147, 0)
+  );
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.Title {
+  font-family: 'Comfortaa';
+  margin-bottom: 0;
+  font-size: 200%;
+}
+
+.Baseline {
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  font-family: 'Comfortaa';
+  line-height: 1.5;
 }
 
 .Form {
@@ -119,6 +156,7 @@ h1 {
 .Footer {
   margin-top: auto;
   text-align: center;
+  padding: 0 1em;
 }
 
 .Footer a {

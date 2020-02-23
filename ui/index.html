@@ -12,24 +12,29 @@
   </head>
 
   <body>
-    <main role="main" class="Container">
-      <h1>Selectors Explained</h1>
-      <form id="form" class="Form" action="/">
-        <label for="selector" class="Label">🤯 Selector</label>
-        <input
-          type="text"
-          name="selector"
-          id="selector"
-          required
-          class="Input"
-          placeholder="e.g. p.foo a[href]"
-          autofocus
-          aria-describedby="result"
-        />
-        <button type="submit" class="Button">Explain ✨</button>
-      </form>
-      <div id="result" class="Result"></div>
-    </main>
+    <div class="Container">
+      <header role="banner" class="Header">
+        <h1 class="Title">Selectors Explained</h1>
+        <p class="Baseline">Convert DOM selectors into plain English.</p>
+      </header>
+      <main role="main" class="Main">
+        <form id="form" class="Form" action="/">
+          <label for="selector" class="Label">🤯 Selector</label>
+          <input
+            type="text"
+            name="selector"
+            id="selector"
+            required
+            class="Input"
+            placeholder="e.g. p.foo a[href]"
+            autofocus
+            aria-describedby="result"
+          />
+          <button type="submit" class="Button">Explain ✨</button>
+        </form>
+        <div id="result" class="Result"></div>
+      </main>
+    </div>
 
     <footer role="contentinfo" class="Footer">
       <p>
