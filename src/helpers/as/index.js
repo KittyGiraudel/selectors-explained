@@ -6,12 +6,13 @@ export default subject => {
   const pseudo = parsePseudoElement(subject)
   const context = getSelectorContext(subject)
   const tag = tagName && tagName !== '*' ? `<${tagName}>` : ''
+  const content = [context, tag, 'element'].filter(Boolean).join(' ')
   const article =
     id || ['html', 'body', 'head'].includes(tagName)
       ? 'the'
-      : context || tag
-      ? 'a'
-      : 'an'
+      : /^[aeiouy]/.test(content)
+      ? 'an'
+      : 'a'
 
-  return pseudo + [article, context, tag, 'element'].filter(Boolean).join(' ')
+  return pseudo + article + ' ' + content
 }

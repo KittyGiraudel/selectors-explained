@@ -99,7 +99,7 @@ describe('Pseudo-classes', () => {
   })
 
   it('should handle the :active pseudo-class', () => {
-    expect(explain('a:active')).toBe('a active <a> element')
+    expect(explain('a:active')).toBe('an active <a> element')
   })
 
   it('should handle the :focus pseudo-class', () => {
@@ -108,6 +108,10 @@ describe('Pseudo-classes', () => {
 
   it('should handle the :checked pseudo-class', () => {
     expect(explain('a:checked')).toBe('a checked <a> element')
+  })
+
+  it('should handle the :invalid pseudo-class', () => {
+    expect(explain('a:invalid')).toBe('an invalid <a> element')
   })
 
   it('should handle multiple pseudo-classes', () => {

@@ -1,20 +1,67 @@
 var explain = (function () {
   'use strict';
 
-  const PSEUDO_CLASSES = ['active', 'hover', 'focus', 'checked'];
-
   var withQuotes = item => `‘${item}’`;
 
+  const PSEUDO_CLASSES = {
+    active: 'active',
+    // 'any-link': 'any-link',
+    blank: 'blank',
+    checked: 'checked',
+    // 'current': 'current',
+    // 'default': 'default',
+    // 'defined': 'defined',
+    disabled: 'disabled',
+    // 'drop': 'drop',
+    empty: 'empty',
+    enabled: 'enabled',
+    // 'first': 'first',
+    // 'first-child': 'first-child',
+    // 'first-of-type': 'first-of-type',
+    // 'fullscreen': 'fullscreen',
+    // 'future': 'future',
+    focus: 'focused',
+    // 'focus-visible': 'focus-visible',
+    // 'focus-within': 'focus-within',
+    // 'host': 'host',
+    hover: 'hovered',
+    // 'indeterminate': 'indeterminate',
+    // 'in-range': 'in-range',
+    invalid: 'invalid',
+    // 'last-child': 'last-child',
+    // 'last-of-type': 'last-of-type',
+    // 'left': 'left',
+    // 'link': 'link',
+    // 'local-link': 'local-link',
+    // 'only-child': 'only-child',
+    // 'only-of-type': 'only-of-type',
+    optional: 'optional',
+    'out-of-range': 'out-of-range',
+    // 'past': 'past',
+    // 'placeholder-shown': 'placeholder-shown',
+    'read-only': 'read-only',
+    // 'read-write': 'read-write',
+    required: 'required',
+    // 'right': 'right',
+    // 'root': 'root',
+    // 'scope': 'scope',
+    target: 'targeted',
+    // 'target-within': 'target-within',
+    // 'user-invalid': 'user-invalid',
+    valid: 'valid',
+    visited: 'visited',
+  };
+
+  var isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name);
+
   const getPseudoElement = ({ pseudos = [] }) =>
-    pseudos
-      .map(pseudo => pseudo.name)
-      .find(pseudo => pseudo && !PSEUDO_CLASSES.includes(pseudo));
+    pseudos.find(pseudo => pseudo.name !== '' && !isPseudoClass(pseudo));
 
   var parsePseudoElement = subject => {
     const pseudoElement = getPseudoElement(subject);
 
     if (pseudoElement) {
-      return `the ${withQuotes(pseudoElement)} pseudo-element of `
+      return `the ${withQuotes(pseudoElement.name)} pseudo-element of `
     }
 
     return ''
@@ -28,23 +75,10 @@ var explain = (function () {
     }, '')
   };
 
-  const isPseudoClass = ({ name }) => PSEUDO_CLASSES.includes(name);
-
-  const explainPseudoClass = ({ name }) => {
-    switch (name) {
-      case 'hover':
-        return 'hovered'
-      case 'active':
-        return 'active'
-      case 'focus':
-        return 'focused'
-      case 'checked':
-        return 'checked'
-    }
-  };
-
   var parsePseudoClasses = ({ pseudos = [] }) =>
-    enumerate(pseudos.filter(isPseudoClass).map(explainPseudoClass));
+    enumerate(
+      pseudos.filter(isPseudoClass).map(pseudo => PSEUDO_CLASSES[pseudo.name])
+    );
 
   var getSelectorContext = selector => parsePseudoClasses(selector);
 
@@ -53,14 +87,15 @@ var explain = (function () {
     const pseudo = parsePseudoElement(subject);
     const context = getSelectorContext(subject);
     const tag = tagName && tagName !== '*' ? `<${tagName}>` : '';
+    const content = [context, tag, 'element'].filter(Boolean).join(' ');
     const article =
       id || ['html', 'body', 'head'].includes(tagName)
         ? 'the'
-        : context || tag
-        ? 'a'
-        : 'an';
+        : /^[aeiouy]/.test(content)
+        ? 'an'
+        : 'a';
 
-    return pseudo + [article, context, tag, 'element'].filter(Boolean).join(' ')
+    return pseudo + article + ' ' + content
   };
 
   var pluralise = singular => items => {

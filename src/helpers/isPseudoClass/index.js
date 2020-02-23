@@ -1,3 +1,3 @@
 import { PSEUDO_CLASSES } from '../../constants'
 
-export default ({ name }) => PSEUDO_CLASSES.includes(name)
+export default ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)

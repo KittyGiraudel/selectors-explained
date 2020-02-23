@@ -1,16 +1,14 @@
-import { PSEUDO_CLASSES } from '../../constants'
 import withQuotes from '../withQuotes'
+import isPseudoClass from '../isPseudoClass'
 
 const getPseudoElement = ({ pseudos = [] }) =>
-  pseudos
-    .map(pseudo => pseudo.name)
-    .find(pseudo => pseudo && !PSEUDO_CLASSES.includes(pseudo))
+  pseudos.find(pseudo => pseudo.name !== '' && !isPseudoClass(pseudo))
 
 export default subject => {
   const pseudoElement = getPseudoElement(subject)
 
   if (pseudoElement) {
-    return `the ${withQuotes(pseudoElement)} pseudo-element of `
+    return `the ${withQuotes(pseudoElement.name)} pseudo-element of `
   }
 
   return ''
