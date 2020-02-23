@@ -170,7 +170,7 @@ var explain = (function () {
       case '>':
         return ' directly within '
       case '+':
-        return ' directly after '
+        return ' directly adjacent to '
       case '~':
         return ' after '
       default:
