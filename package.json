@@ -12,9 +12,7 @@
   },
   "scripts": {
     "bundle": "rollup --config",
-    "bundle:dev": "rollup --config --watch",
     "test": "jest --config jest.config.js",
-    "test:dev": "jest --config jest.config.js --watchAll",
-    "serve:dev": "npm run bundle && npx serve src/ui"
+    "serve": "npm run bundle && npx serve src/ui"
   }
 }
