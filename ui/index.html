@@ -14,8 +14,8 @@
   <body>
     <main role="main" class="Container">
       <h1>Selectors Explained</h1>
-      <form id="form" class="Form">
-        <label for="selector" class="Label">⁉️ Selector</label>
+      <form id="form" class="Form" action="/">
+        <label for="selector" class="Label">🤯 Selector</label>
         <input
           type="text"
           name="selector"
@@ -46,63 +46,90 @@
 
     <script src="./bundle.js"></script>
     <script>
-      const $form = document.querySelector('#form')
-      const $selector = document.querySelector('#selector')
-      const $result = document.querySelector('#result')
-
       const capitalise = value =>
         value.slice(0, 1).toUpperCase() + value.slice(1)
+
+      const asSentence = value => capitalise(value) + '.'
 
       const asHTML = value =>
         value
           // Make sure tag names are properly displayed and not rendered as HTML
           .replace(/</g, '‘&lt;')
           .replace(/>/g, '&gt;’')
-
           // Wrap emphases with <code> elements for clarity
           .replace(/‘/g, '<code>')
           .replace(/’/g, '</code>')
-
           // Insert line breaks for readability
           .replace(/([^yf]) within/g, (...args) => `${args[1]}<br>… within`)
           .replace(/([^y]) after/g, (...args) => `${args[1]}<br>… after`)
+          .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
           .replace(/element of/g, 'element<br>… of')
           .replace(/itself/g, '<br>… itself')
-          .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
 
-      const asSentence = value => capitalise(value) + '.'
+      const updateQueryParam = value => {
+        const params = new URLSearchParams(window.location.search)
+        if (!value) params.delete('s')
+        else params.set('s', encodeURIComponent(value))
+        history.pushState(null, '', '?' + params.toString())
+      }
 
-      form.addEventListener('submit', event => {
-        // Prevent page refresh
-        event.preventDefault()
+      document.addEventListener('DOMContentLoaded', event => {
+        const params = new URLSearchParams(window.location.search)
+        const $form = document.querySelector('#form')
+        const $selector = document.querySelector('#selector')
+        const $result = document.querySelector('#result')
 
-        let results = null
+        const displayResults = value => {
+          let results = null
 
-        // Empty the current result container
-        $result.innerHTML = ''
+          // Empty the current result container
+          $result.innerHTML = ''
 
-        try {
-          results = explain(selector.value)
-        } catch (error) {
-          // Display an error in case of exception
-          const $p = document.createElement('p')
-          $p.innerText = asSentence(error.message)
-          $result.appendChild($p)
+          try {
+            results = explain(value)
+          } catch (error) {
+            // Display an error in case of exception and empty the query param
+            const $p = document.createElement('p')
+            $p.innerText = asSentence(error.message)
+            $result.appendChild($p)
+            updateQueryParam('')
+          }
+
+          // Handle a single selector as a paragraph
+          if (results.length === 1) {
+            const $p = document.createElement('p')
+            $p.innerHTML = asHTML(asSentence(results[0]))
+            $result.appendChild($p)
+          } else {
+            // Handle multiple selectors as an unordered list
+            const $ol = document.createElement('ul')
+            results.forEach(result => {
+              const $li = document.createElement('li')
+              $li.innerHTML = asHTML(asSentence(result))
+              $ol.appendChild($li)
+            })
+            $result.appendChild($ol)
+          }
         }
 
-        if (results.length === 1) {
-          const $p = document.createElement('p')
-          $p.innerHTML = asHTML(asSentence(results[0]))
-          $result.appendChild($p)
-        } else {
-          const $ol = document.createElement('ol')
-          results.forEach(result => {
-            const $li = document.createElement('li')
-            $li.innerHTML = asHTML(asSentence(result))
-            $ol.appendChild($li)
-          })
-          $result.appendChild($ol)
+        // Prefill the field with selector from the URL if possible
+        if (params.has('s')) {
+          try {
+            $selector.value = decodeURIComponent(params.get('s'))
+            displayResults($selector.value)
+          } catch (error) {
+            updateQueryParam('')
+          }
         }
+
+        $form.addEventListener('submit', event => {
+          // Prevent page refresh
+          event.preventDefault()
+          // Update query parameter with selector
+          updateQueryParam($selector.value)
+          // Display the value
+          displayResults($selector.value)
+        })
       })
     </script>
   </body>
