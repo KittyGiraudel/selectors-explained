@@ -1,3 +1,4 @@
+import { UNIQUE_ELEMENTS } from '../../constants'
 import parsePseudoElement from '../parsePseudoElement'
 
 export default subject => {
@@ -6,7 +7,7 @@ export default subject => {
   const tag = tagName && tagName !== '*' ? `<${tagName}>` : ''
   const content = [tag, 'element'].filter(Boolean).join(' ')
   const article =
-    id || ['html', 'body', 'head'].includes(tagName)
+    id || UNIQUE_ELEMENTS.includes(tagName)
       ? 'the'
       : /^[aeiouy]/.test(content)
       ? 'an'

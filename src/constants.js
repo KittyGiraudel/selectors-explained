@@ -46,3 +46,5 @@ export const PSEUDO_CLASSES = {
   valid: 'valid',
   visited: 'visited',
 }
+
+export const UNIQUE_ELEMENTS = ['html', 'body', 'head']
