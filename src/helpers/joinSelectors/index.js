@@ -16,11 +16,10 @@ const explainContext = ({ nestingOperator }) => {
 export default selectors =>
   selectors.reduce((acc, selector, index) => {
     const outcome = acc + explainSelector(selector)
-    const isFirst = index === 0
-    const context = explainContext(selector)
 
     if (index === selectors.length - 1) {
       return outcome
     }
-    return outcome + (isFirst ? '' : ' itself') + context
+
+    return outcome + (index === 0 ? '' : ' itself') + explainContext(selector)
   }, '')

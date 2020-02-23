@@ -1,9 +1,9 @@
 import as from '../as'
 import getSelectorDetails from '../getSelectorDetails'
-import getSelectorContext from '../getSelectorContext'
+import parsePseudoClasses from '../parsePseudoClasses'
 
 export default selector =>
-  [as, getSelectorDetails, getSelectorContext]
+  [as, getSelectorDetails, parsePseudoClasses]
     .map(fn => fn(selector))
     .filter(Boolean)
     .join(' ')

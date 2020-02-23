@@ -1,7 +1,6 @@
 import { CssSelectorParser } from 'css-selector-parser'
 const parser = new CssSelectorParser()
 
-parser.registerSelectorPseudos('has')
 parser.registerNestingOperators('>', '+', '~')
 parser.registerAttrEqualityMods('^', '$', '*', '~')
 parser.enableSubstitutes()

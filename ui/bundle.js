@@ -1,8 +1,6 @@
 var explain = (function () {
   'use strict';
 
-  var withQuotes = item => `‘${item}’`;
-
   const PSEUDO_CLASSES = {
     active: 'active',
     // 'any-link': 'any-link',
@@ -52,13 +50,16 @@ var explain = (function () {
     visited: 'visited',
   };
 
+  const UNIQUE_ELEMENTS = ['html', 'body', 'head'];
+
+  var withQuotes = item => `‘${item}’`;
+
   var isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name);
 
-  const getPseudoElement = ({ pseudos = [] }) =>
-    pseudos.find(pseudo => pseudo.name !== '' && !isPseudoClass(pseudo));
-
-  var parsePseudoElement = subject => {
-    const pseudoElement = getPseudoElement(subject);
+  var parsePseudoElement = ({ pseudos = [] }) => {
+    const pseudoElement = pseudos.find(
+      pseudo => pseudo.name !== '' && !isPseudoClass(pseudo)
+    );
 
     if (pseudoElement) {
       return `the ${withQuotes(pseudoElement.name)} pseudo-element of `
@@ -73,21 +74,13 @@ var explain = (function () {
     const tag = tagName && tagName !== '*' ? `<${tagName}>` : '';
     const content = [tag, 'element'].filter(Boolean).join(' ');
     const article =
-      id || ['html', 'body', 'head'].includes(tagName)
+      id || UNIQUE_ELEMENTS.includes(tagName)
         ? 'the'
         : /^[aeiouy]/.test(content)
         ? 'an'
         : 'a';
 
     return pseudo + article + ' ' + content
-  };
-
-  var pluralise = singular => items => {
-    if (items.length === 1) return singular
-    else {
-      if (singular.endsWith('s')) return singular + 'es'
-      else return singular + 's'
-    }
   };
 
   var enumerate = items => {
@@ -113,25 +106,33 @@ var explain = (function () {
     }
   };
 
-  var parseAttributes = ({ attrs = [] }) =>
-    enumerate(
-      attrs.map(
-        ({ name, value, operator }) =>
-          'an attribute ' +
-          (value
-            ? `${withQuotes(name)} whose value ${explainAttrOperator(
-              operator
-            )} ${withQuotes(value)}`
-            : withQuotes(name))
-      )
-    );
+  const explainAttr = ({ name, value, operator }) =>
+    'an attribute ' +
+    (value
+      ? `${withQuotes(name)} whose value ${explainAttrOperator(
+        operator
+      )} ${withQuotes(value)}`
+      : withQuotes(name));
 
-  var parseClasses = ({ classNames = [] }) =>
-    classNames.length > 0
-      ? pluralise('class')(classNames) +
-        ' ' +
-        enumerate(classNames.map(withQuotes))
-      : '';
+  var parseAttributes = ({ attrs = [] }) => {
+    if (attrs.length === 0) {
+      return ''
+    }
+
+    return enumerate(attrs.map(explainAttr))
+  };
+
+  var parseClasses = ({ classNames = [] }) => {
+    if (classNames.length === 0) {
+      return ''
+    }
+
+    if (classNames.length === 1) {
+      return 'class ' + withQuotes(classNames[0])
+    }
+
+    return 'classes ' + enumerate(classNames.map(withQuotes))
+  };
 
   var parseId = ({ id }) => (id ? `id ${withQuotes(id)}` : '');
 
@@ -146,19 +147,18 @@ var explain = (function () {
     }, '')
   };
 
-  var parsePseudoClasses = ({ pseudos = [] }) =>
-    enumerate(
-      pseudos.filter(isPseudoClass).map(pseudo => PSEUDO_CLASSES[pseudo.name])
-    );
+  var parsePseudoClasses = ({ pseudos = [] }) => {
+    const pseudoClasses = pseudos
+      .filter(isPseudoClass)
+      .map(pseudo => PSEUDO_CLASSES[pseudo.name]);
 
-  var getSelectorContext = selector => {
-    const pseudoClasses = parsePseudoClasses(selector);
-
-    return pseudoClasses ? 'provided it is ' + pseudoClasses : ''
+    return pseudoClasses.length > 0
+      ? `provided it is ${enumerate(pseudoClasses)}`
+      : ''
   };
 
   var explainSelector = selector =>
-    [as, getSelectorDetails, getSelectorContext]
+    [as, getSelectorDetails, parsePseudoClasses]
       .map(fn => fn(selector))
       .filter(Boolean)
       .join(' ');
@@ -179,13 +179,12 @@ var explain = (function () {
   var joinSelectors = selectors =>
     selectors.reduce((acc, selector, index) => {
       const outcome = acc + explainSelector(selector);
-      const isFirst = index === 0;
-      const context = explainContext(selector);
 
       if (index === selectors.length - 1) {
         return outcome
       }
-      return outcome + (isFirst ? '' : ' itself') + context
+
+      return outcome + (index === 0 ? '' : ' itself') + explainContext(selector)
     }, '');
 
   function CssSelectorParser() {
@@ -788,7 +787,6 @@ var explain = (function () {
 
   const parser = new cssSelectorParser_1();
 
-  parser.registerSelectorPseudos('has');
   parser.registerNestingOperators('>', '+', '~');
   parser.registerAttrEqualityMods('^', '$', '*', '~');
   parser.enableSubstitutes();
