@@ -82,7 +82,13 @@ describe('Attribute selectors', () => {
 
   it('should handle an attribute selector with a value and the contains strictly operator', () => {
     expect(explain('[data-foo~="bar"]')[0]).toBe(
-      'an element with an attribute ‘data-foo’ whose value contains, surrounded with spaces, ‘bar’'
+      'an element with an attribute ‘data-foo’ whose value is a whitespace-separated list of words, one of which is ‘bar’'
+    )
+  })
+
+  it('should handle an attribute selector with a value and the contains with hyphen operator', () => {
+    expect(explain('[data-foo|="bar"]')[0]).toBe(
+      'an element with an attribute ‘data-foo’ whose value is ‘bar’ or starts with ‘bar-’'
     )
   })
 

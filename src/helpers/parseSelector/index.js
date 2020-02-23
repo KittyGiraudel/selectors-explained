@@ -2,7 +2,7 @@ import { CssSelectorParser } from 'css-selector-parser'
 const parser = new CssSelectorParser()
 
 parser.registerNestingOperators('>', '+', '~')
-parser.registerAttrEqualityMods('^', '$', '*', '~')
+parser.registerAttrEqualityMods('^', '$', '*', '~', '|')
 parser.enableSubstitutes()
 
 export default selector => {

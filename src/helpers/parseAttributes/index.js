@@ -1,28 +1,30 @@
 import enumerate from '../enumerate'
 import withQuotes from '../withQuotes'
 
-const explainAttrOperator = operator => {
-  switch (operator) {
+const explainAttrOperator = attr => {
+  const value = withQuotes(attr.value)
+
+  switch (attr.operator) {
     case '=':
-      return 'is'
+      return 'is ' + value
     case '*=':
-      return 'contains'
+      return 'contains ' + value
     case '^=':
-      return 'starts with'
+      return 'starts with ' + value
     case '$=':
-      return 'ends with'
+      return 'ends with ' + value
     case '~=':
-      return 'contains, surrounded with spaces,'
+      return 'is a whitespace-separated list of words, one of which is ' + value
+    case '|=':
+      return `is ${value} or starts with ${withQuotes(attr.value + '-')}`
   }
 }
 
-const explainAttr = ({ name, value, operator }) =>
+const explainAttr = attr =>
   'an attribute ' +
-  (value
-    ? `${withQuotes(name)} whose value ${explainAttrOperator(
-        operator
-      )} ${withQuotes(value)}`
-    : withQuotes(name))
+  (attr.value
+    ? `${withQuotes(attr.name)} whose value ${explainAttrOperator(attr)}`
+    : withQuotes(attr.name))
 
 export default ({ attrs = [] }) => {
   if (attrs.length === 0) {
