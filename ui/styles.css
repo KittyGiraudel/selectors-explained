@@ -103,6 +103,10 @@ h1 {
   left: 0;
 }
 
+.Result > * {
+  margin: 0;
+}
+
 .Result:empty {
   display: none;
 }

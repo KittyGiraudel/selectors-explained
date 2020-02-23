@@ -28,7 +28,7 @@
         />
         <button type="submit" class="Button">Explain ✨</button>
       </form>
-      <p id="result" class="Result"></p>
+      <div id="result" class="Result"></div>
     </main>
 
     <footer role="contentinfo" class="Footer">
@@ -66,19 +66,42 @@
           // Insert line breaks for readability
           .replace(/([^yf]) within/g, (...args) => `${args[1]}<br>… within`)
           .replace(/([^y]) after/g, (...args) => `${args[1]}<br>… after`)
-          .replace(/of/g, '<br>… of')
+          .replace(/element of/g, 'element<br>… of')
           .replace(/itself/g, '<br>… itself')
           .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
 
       const asSentence = value => capitalise(value) + '.'
 
       form.addEventListener('submit', event => {
+        // Prevent page refresh
         event.preventDefault()
 
+        let results = null
+
+        // Empty the current result container
+        $result.innerHTML = ''
+
         try {
-          $result.innerHTML = asHTML(asSentence(explain(selector.value)))
+          results = explain(selector.value)
         } catch (error) {
-          $result.innerText = asSentence(error.message)
+          // Display an error in case of exception
+          const $p = document.createElement('p')
+          $p.innerText = asSentence(error.message)
+          $result.appendChild($p)
+        }
+
+        if (results.length === 1) {
+          const $p = document.createElement('p')
+          $p.innerHTML = asHTML(asSentence(results[0]))
+          $result.appendChild($p)
+        } else {
+          const $ol = document.createElement('ol')
+          results.forEach(result => {
+            const $li = document.createElement('li')
+            $li.innerHTML = asHTML(asSentence(result))
+            $ol.appendChild($li)
+          })
+          $result.appendChild($ol)
         }
       })
     </script>

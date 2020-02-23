@@ -16,8 +16,8 @@ var explain = (function () {
     empty: 'empty',
     enabled: 'enabled',
     // 'first': 'first',
-    // 'first-child': 'first-child',
-    // 'first-of-type': 'first-of-type',
+    'first-child': 'the first child of its parent',
+    'first-of-type': 'the first of its type in its parent',
     // 'fullscreen': 'fullscreen',
     // 'future': 'future',
     focus: 'focused',
@@ -28,13 +28,13 @@ var explain = (function () {
     // 'indeterminate': 'indeterminate',
     // 'in-range': 'in-range',
     invalid: 'invalid',
-    // 'last-child': 'last-child',
-    // 'last-of-type': 'last-of-type',
+    'last-child': 'the last child of its parent',
+    'last-of-type': 'the last of its type in its parent',
     // 'left': 'left',
     // 'link': 'link',
     // 'local-link': 'local-link',
-    // 'only-child': 'only-child',
-    // 'only-of-type': 'only-of-type',
+    'only-child': 'the only child of its parent',
+    'only-of-type': 'the only of its type in its parent',
     optional: 'optional',
     'out-of-range': 'out-of-range',
     // 'past': 'past',
@@ -67,27 +67,11 @@ var explain = (function () {
     return ''
   };
 
-  var enumerate = items => {
-    return items.reduce((acc, item, index) => {
-      if (index === 0) return acc + item
-      if (index === items.length - 1) return acc + ' and ' + item
-      else return acc + ', ' + item
-    }, '')
-  };
-
-  var parsePseudoClasses = ({ pseudos = [] }) =>
-    enumerate(
-      pseudos.filter(isPseudoClass).map(pseudo => PSEUDO_CLASSES[pseudo.name])
-    );
-
-  var getSelectorContext = selector => parsePseudoClasses(selector);
-
   var as = subject => {
     const { id, tagName } = subject;
     const pseudo = parsePseudoElement(subject);
-    const context = getSelectorContext(subject);
     const tag = tagName && tagName !== '*' ? `<${tagName}>` : '';
-    const content = [context, tag, 'element'].filter(Boolean).join(' ');
+    const content = [tag, 'element'].filter(Boolean).join(' ');
     const article =
       id || ['html', 'body', 'head'].includes(tagName)
         ? 'the'
@@ -106,6 +90,14 @@ var explain = (function () {
     }
   };
 
+  var enumerate = items => {
+    return items.reduce((acc, item, index) => {
+      if (index === 0) return acc + item
+      if (index === items.length - 1) return acc + ' and ' + item
+      else return acc + ', ' + item
+    }, '')
+  };
+
   const explainAttrOperator = operator => {
     switch (operator) {
       case '=':
@@ -116,6 +108,8 @@ var explain = (function () {
         return 'starts with'
       case '$=':
         return 'ends with'
+      case '~=':
+        return 'contains, surrounded with spaces,'
     }
   };
 
@@ -141,23 +135,33 @@ var explain = (function () {
 
   var parseId = ({ id }) => (id ? `id ${withQuotes(id)}` : '');
 
-  const _with = items => {
-    return items.reduce((acc, item, index) => {
-      if (index === 0) return acc + 'with ' + item
-      else return acc + ' and ' + item
-    }, '')
-  };
-
   var getSelectorDetails = selector => {
     const components = [parseId, parseClasses, parseAttributes]
       .map(fn => fn(selector))
       .filter(Boolean);
 
-    return _with(components)
+    return components.reduce((acc, item, index) => {
+      if (index === 0) return acc + 'with ' + item
+      else return acc + ' and ' + item
+    }, '')
+  };
+
+  var parsePseudoClasses = ({ pseudos = [] }) =>
+    enumerate(
+      pseudos.filter(isPseudoClass).map(pseudo => PSEUDO_CLASSES[pseudo.name])
+    );
+
+  var getSelectorContext = selector => {
+    const pseudoClasses = parsePseudoClasses(selector);
+
+    return pseudoClasses ? 'provided it is ' + pseudoClasses : ''
   };
 
   var explainSelector = selector =>
-    [as(selector), getSelectorDetails(selector)].filter(Boolean).join(' ');
+    [as, getSelectorDetails, getSelectorContext]
+      .map(fn => fn(selector))
+      .filter(Boolean)
+      .join(' ');
 
   const explainContext = ({ nestingOperator }) => {
     switch (nestingOperator) {
@@ -840,7 +844,10 @@ var explain = (function () {
     return selectors
   };
 
-  var index = selector => joinSelectors(getSelectors(selector));
+  var index = selector =>
+    selector
+      .split(/\s*,\s*/g)
+      .map(selector => joinSelectors(getSelectors(selector)));
 
   return index;
 
