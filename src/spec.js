@@ -187,6 +187,18 @@ describe('Combinators', () => {
       'a <a> element directly within a <p> element itself within an element with class ‘foo’'
     )
   })
+
+  it('should handle adjacence', () => {
+    expect(explain('.foo p ~ a')[0]).toBe(
+      'a <a> element after a <p> element itself within an element with class ‘foo’'
+    )
+  })
+
+  it('should handle direct adjacence', () => {
+    expect(explain('.foo p + a')[0]).toBe(
+      'a <a> element directly adjacent to a <p> element itself within an element with class ‘foo’'
+    )
+  })
 })
 
 describe('Multiple selectors', () => {
