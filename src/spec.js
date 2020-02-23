@@ -95,27 +95,29 @@ describe('Attribute selectors', () => {
 
 describe('Pseudo-classes', () => {
   it('should handle the :hover pseudo-class', () => {
-    expect(explain('a:hover')).toBe('a hovered <a> element')
+    expect(explain('a:hover')).toBe('a <a> element provided it is hovered')
   })
 
   it('should handle the :active pseudo-class', () => {
-    expect(explain('a:active')).toBe('an active <a> element')
+    expect(explain('a:active')).toBe('a <a> element provided it is active')
   })
 
   it('should handle the :focus pseudo-class', () => {
-    expect(explain('a:focus')).toBe('a focused <a> element')
+    expect(explain('a:focus')).toBe('a <a> element provided it is focused')
   })
 
   it('should handle the :checked pseudo-class', () => {
-    expect(explain('a:checked')).toBe('a checked <a> element')
+    expect(explain('a:checked')).toBe('a <a> element provided it is checked')
   })
 
   it('should handle the :invalid pseudo-class', () => {
-    expect(explain('a:invalid')).toBe('an invalid <a> element')
+    expect(explain('a:invalid')).toBe('a <a> element provided it is invalid')
   })
 
   it('should handle multiple pseudo-classes', () => {
-    expect(explain('a:hover:focus')).toBe('a hovered and focused <a> element')
+    expect(explain('a:hover:focus')).toBe(
+      'a <a> element provided it is hovered and focused'
+    )
   })
 })
 
