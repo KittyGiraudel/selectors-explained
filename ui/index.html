@@ -75,6 +75,9 @@
 
       const asSentence = value => capitalise(value) + '.'
 
+      const linkify = (label, href) =>
+        `<a href="${href}" rel="noopener noreferrer" target="_blank">${label}</a>`
+
       const asHTML = value =>
         value
           // Make sure tag names are properly displayed and not rendered as HTML
@@ -89,6 +92,22 @@
           .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
           .replace(/element of/g, 'element<br>… of')
           .replace(/itself/g, '<br>… itself')
+
+          // Add useful links
+          .replace(
+            /nth child/g,
+            linkify(
+              'nth child',
+              'https://css-tricks.com/examples/nth-child-tester/'
+            )
+          )
+          .replace(
+            /nth of its type/g,
+            linkify(
+              'nth of its type',
+              'https://css-tricks.com/examples/nth-child-tester/'
+            )
+          )
 
       const updateQueryParam = value => {
         const params = new URLSearchParams(window.location.search)
