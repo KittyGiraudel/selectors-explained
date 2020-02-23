@@ -13,6 +13,7 @@
   "scripts": {
     "bundle": "rollup --config",
     "test": "jest --config jest.config.js",
-    "serve": "npm run bundle && npx serve ui"
+    "serve": "npm run bundle && npx serve ui",
+    "deploy": "git subtree push --prefix ui origin gh-pages"
   }
 }
