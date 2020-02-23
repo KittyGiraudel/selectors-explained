@@ -76,7 +76,7 @@ var explain = (function () {
     const article =
       id || UNIQUE_ELEMENTS.includes(tagName)
         ? 'the'
-        : /^[aeiouy]/.test(content)
+        : /^[aeiouy]/.test(content.replace('<', ''))
         ? 'an'
         : 'a';
 
