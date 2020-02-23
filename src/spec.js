@@ -74,6 +74,12 @@ describe('Attribute selectors', () => {
     )
   })
 
+  it('should handle an attribute selector with a value and the contains strictly operator', () => {
+    expect(explain('[data-foo~="bar"]')).toBe(
+      'an element with an attribute ‘data-foo’ whose value contains, surrounded with spaces, ‘bar’'
+    )
+  })
+
   it('should handle an attribute selector with a value and the starts with operator', () => {
     expect(explain('[data-foo^="bar"]')).toBe(
       'an element with an attribute ‘data-foo’ whose value starts with ‘bar’'

@@ -12,6 +12,8 @@ const explainAttrOperator = operator => {
       return 'starts with'
     case '$=':
       return 'ends with'
+    case '~=':
+      return 'contains, surrounded with spaces,'
   }
 }
 
