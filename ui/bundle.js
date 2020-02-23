@@ -106,9 +106,9 @@ var explain = (function () {
       case '$=':
         return 'ends with ' + value
       case '~=':
-        return 'is a whitespace-separated list of words, one of which is ' + value
+        return 'is a space-separated list of values, one of them being ' + value
       case '|=':
-        return `is ${value} or starts with ${withQuotes(attr.value + '-')}`
+        return 'is an hyphen-separated list of values, one of them being ' + value
     }
   };
 
