@@ -28,6 +28,8 @@ export const PSEUDO_CLASSES = {
   // 'left': 'left',
   // 'link': 'link',
   // 'local-link': 'local-link',
+  'nth-child': 'the nth child (formula) of its parent',
+  'nth-of-type': 'the nth of its type (formula) in its parent',
   'only-child': 'the only child of its parent',
   'only-of-type': 'the only of its type in its parent',
   optional: 'optional',
