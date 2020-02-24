@@ -1,6 +1,6 @@
 # Selectors Explained
 
-A DOM selector to plain English converter.
+A CSS selector to plain English converter.
 
 ## Dev
 
