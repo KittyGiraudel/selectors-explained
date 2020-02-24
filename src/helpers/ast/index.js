@@ -31,6 +31,7 @@ export const getAST = selector => {
 
     return ast
   } catch (error) {
+    console.log(error, selector)
     throw new Error('Invalid CSS selector')
   }
 }

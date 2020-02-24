@@ -15,7 +15,7 @@ export default subject => {
   const article =
     id || UNIQUE_ELEMENTS.includes(tagName)
       ? 'the'
-      : /^[aeiouy]/.test(content.replace('`<', ''))
+      : /^[aeiouy]/.test(content.replace('‘<', ''))
       ? 'an'
       : 'a'
 

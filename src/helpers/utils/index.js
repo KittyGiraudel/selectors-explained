@@ -12,7 +12,7 @@ export const enumerate = items => {
   }, '')
 }
 
-export const highlight = item => `\`${item}\``
+export const highlight = item => `‘${item}’`
 
 export const asSentence = (acc, item, index) => {
   if (index === 0) return acc + 'with ' + item
