@@ -17,7 +17,7 @@ describe('Element selectors', () => {
   })
 
   it('should handle element selectors', () => {
-    expect(explain('a')[0]).toBe('an <a> element')
+    expect(explain('a')[0]).toBe('an ‘<a>’ element')
   })
 })
 
@@ -45,7 +45,7 @@ describe('Class selectors', () => {
   })
 
   it('should handle element and class selectors', () => {
-    expect(explain('a.bar')[0]).toBe('an <a> element with class ‘bar’')
+    expect(explain('a.bar')[0]).toBe('an ‘<a>’ element with class ‘bar’')
   })
 
   it('should handle id and class selectors', () => {
@@ -113,32 +113,38 @@ describe('Attribute selectors', () => {
 
 describe('Pseudo-classes', () => {
   it('should handle the :hover pseudo-class', () => {
-    expect(explain('a:hover')[0]).toBe('an <a> element provided it is hovered')
+    expect(explain('a:hover')[0]).toBe(
+      'an ‘<a>’ element provided it is hovered'
+    )
   })
 
   it('should handle the :active pseudo-class', () => {
-    expect(explain('a:active')[0]).toBe('an <a> element provided it is active')
+    expect(explain('a:active')[0]).toBe(
+      'an ‘<a>’ element provided it is active'
+    )
   })
 
   it('should handle the :focus pseudo-class', () => {
-    expect(explain('a:focus')[0]).toBe('an <a> element provided it is focused')
+    expect(explain('a:focus')[0]).toBe(
+      'an ‘<a>’ element provided it is focused'
+    )
   })
 
   it('should handle the :checked pseudo-class', () => {
     expect(explain('a:checked')[0]).toBe(
-      'an <a> element provided it is checked'
+      'an ‘<a>’ element provided it is checked'
     )
   })
 
   it('should handle the :invalid pseudo-class', () => {
     expect(explain('a:invalid')[0]).toBe(
-      'an <a> element provided it is invalid'
+      'an ‘<a>’ element provided it is invalid'
     )
   })
 
   it('should handle multiple pseudo-classes', () => {
     expect(explain('a:hover:focus')[0]).toBe(
-      'an <a> element provided it is hovered and focused'
+      'an ‘<a>’ element provided it is hovered and focused'
     )
   })
 })
@@ -146,61 +152,61 @@ describe('Pseudo-classes', () => {
 describe('Pseudo-elements', () => {
   it('should handle the ::before pseudo-element', () => {
     expect(explain('a::before')[0]).toBe(
-      'the ‘before’ pseudo-element of an <a> element'
+      'the ‘before’ pseudo-element of an ‘<a>’ element'
     )
   })
 
   it('should handle the ::after pseudo-element', () => {
     expect(explain('a::after')[0]).toBe(
-      'the ‘after’ pseudo-element of an <a> element'
+      'the ‘after’ pseudo-element of an ‘<a>’ element'
     )
   })
 
   it('should handle the ::first-line pseudo-element', () => {
     expect(explain('a::first-line')[0]).toBe(
-      'the ‘first-line’ pseudo-element of an <a> element'
+      'the ‘first-line’ pseudo-element of an ‘<a>’ element'
     )
   })
 
   it('should handle an arbitrary pseudo-element', () => {
     expect(explain('a::foobar')[0]).toBe(
-      'the ‘foobar’ pseudo-element of an <a> element'
+      'the ‘foobar’ pseudo-element of an ‘<a>’ element'
     )
   })
 
   it('should handle pseudo-elements with a single colon', () => {
     expect(explain('a:before')[0]).toBe(
-      'the ‘before’ pseudo-element of an <a> element'
+      'the ‘before’ pseudo-element of an ‘<a>’ element'
     )
   })
 })
 
 describe('Combinators', () => {
   it('should handle regular descendance', () => {
-    expect(explain('p a')[0]).toBe('an <a> element within a <p> element')
+    expect(explain('p a')[0]).toBe('an ‘<a>’ element within a ‘<p>’ element')
   })
 
   it('should handle regular descendance', () => {
     expect(explain('#id .foo a')[0]).toBe(
-      'an <a> element within an element with class ‘foo’ itself within the element with id ‘id’'
+      'an ‘<a>’ element within an element with class ‘foo’ itself within the element with id ‘id’'
     )
   })
 
   it('should handle direct descendance', () => {
     expect(explain('.foo p > a')[0]).toBe(
-      'an <a> element directly within a <p> element itself within an element with class ‘foo’'
+      'an ‘<a>’ element directly within a ‘<p>’ element itself within an element with class ‘foo’'
     )
   })
 
   it('should handle adjacence', () => {
     expect(explain('.foo p ~ a')[0]).toBe(
-      'an <a> element after a <p> element itself within an element with class ‘foo’'
+      'an ‘<a>’ element after a ‘<p>’ element itself within an element with class ‘foo’'
     )
   })
 
   it('should handle direct adjacence', () => {
     expect(explain('.foo p + a')[0]).toBe(
-      'an <a> element directly adjacent to a <p> element itself within an element with class ‘foo’'
+      'an ‘<a>’ element directly adjacent to a ‘<p>’ element itself within an element with class ‘foo’'
     )
   })
 })

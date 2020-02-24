@@ -8,8 +8,8 @@ const linkify = (label, href) =>
 const toHTML = value =>
   asSentence(value)
     // Make sure tag names are properly displayed and not rendered as HTML
-    .replace(/</g, '‘&lt;')
-    .replace(/>/g, '&gt;’')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     // Wrap emphases with <code> elements for clarity
     .replace(/‘/g, '<code>')
     .replace(/’/g, '</code>')
