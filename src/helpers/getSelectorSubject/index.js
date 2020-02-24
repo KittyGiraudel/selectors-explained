@@ -2,9 +2,14 @@ import { UNIQUE_ELEMENTS } from '../../constants'
 import parsePseudoElement from '../parsePseudoElement'
 import highlight from '../highlight'
 
+/**
+ * Return the selector subject in plain English, taking pseudo-elements into
+ * account.
+ * @param {Object} subject - The subject node from the AST
+ * @returns {String}
+ */
 export default subject => {
   const { id, tagName } = subject
-  const pseudo = parsePseudoElement(subject)
   const tag = tagName && tagName !== '*' ? highlight(`<${tagName}>`) : ''
   const content = [tag, 'element'].filter(Boolean).join(' ')
   const article =
@@ -14,5 +19,5 @@ export default subject => {
       ? 'an'
       : 'a'
 
-  return pseudo + article + ' ' + content
+  return parsePseudoElement(subject) + article + ' ' + content
 }

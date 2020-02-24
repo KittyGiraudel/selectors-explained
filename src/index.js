@@ -2,6 +2,12 @@ import joinSelectors from './helpers/joinSelectors'
 import getSelectors from './helpers/getSelectors'
 import toHTML from './helpers/toHTML'
 
+/**
+ * Explain a DOM selector into plain English.
+ * @param {String} selector - DOM selector (possibly with commas)
+ * @param {Boolean} options.html - Whether to return formatted HTML
+ * @paren {String}
+ */
 export default (selector, options = {}) => {
   const data = selector
     .split(/\s*,\s*/g)

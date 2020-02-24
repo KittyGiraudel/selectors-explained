@@ -13,6 +13,12 @@ const explainContext = ({ nestingOperator }) => {
   }
 }
 
+/**
+ * Make a sentence out of selectors by joining them with the appropriate
+ * connector depending on their nesting operator.
+ * @param {Object[]} selectors - Selector nodes from the AST
+ * @returns {String}
+ */
 export default selectors =>
   selectors.reduce((acc, selector, index) => {
     const outcome = acc + explainSelector(selector)

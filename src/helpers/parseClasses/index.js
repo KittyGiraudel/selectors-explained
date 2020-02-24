@@ -1,6 +1,11 @@
 import enumerate from '../enumerate'
 import highlight from '../highlight'
 
+/**
+ * Explain the classe(s) in plain English.
+ * @param {Object} selector - A selector node from the AST
+ * @returns {String}
+ */
 export default ({ classNames = [] }) => {
   if (classNames.length === 0) {
     return ''
