@@ -1,10 +1,9 @@
-import parseSelector from '../parseSelector'
-import findSubject from '../findSubject'
-import getParentNode from '../getParentNode'
+import { getAST, getDeepestNode, getParentNode } from '../ast'
 
 export default selector => {
-  const ast = parseSelector(selector)
-  const subject = findSubject(ast)
+  // Get the AST for the given selector.
+  const ast = getAST(selector)
+  const subject = getDeepestNode(ast)
   const selectors = [subject]
   let parent = null
 
