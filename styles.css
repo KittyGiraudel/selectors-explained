@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-image: linear-gradient(315deg, #031f5c 0%, #660469 74%);
+  color: white;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+@media (min-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+.Container {
+  margin: auto;
+  font-size: 130%;
+  padding: 1em;
+}
+
+.Main {
+  width: 600px;
+  max-width: 100%;
+}
+
+.Header {
+  text-align: center;
+  padding-bottom: 2em;
+  margin-bottom: 1.25em;
+  position: relative;
+}
+
+.Header::after {
+  content: '';
+  position: absolute;
+  width: 10em;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 20, 147, 0),
+    deeppink,
+    rgba(255, 20, 147, 0)
+  );
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+.Title {
+  font-family: 'Comfortaa';
+  margin-bottom: 0;
+  font-size: 200%;
+}
+
+.Baseline {
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  font-family: 'Comfortaa';
+  line-height: 1.5;
+}
+
+.Form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin: 0 -0.25em 2em;
+}
+
+.Label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 80%;
+  flex-basis: 100%;
+  margin: 0 0.25em;
+}
+
+.Input {
+  font: inherit;
+  border: 0;
+  background-color: white;
+  color: initial;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  margin: 0.25em;
+  flex-grow: 1;
+}
+
+.Input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.Button {
+  font: inherit;
+  color: inherit;
+  padding: 0.5em;
+  margin: 0.25em;
+  background-color: transparent;
+  border: 1px solid;
+  border-radius: 0.25em;
+  transition: 250ms;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.Result {
+  font-size: 100%;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  position: relative;
+  margin: 0.25em 0;
+}
+
+.Result::before {
+  content: '🤓 Explanation';
+  position: absolute;
+  font-size: 80%;
+  text-transform: uppercase;
+  color: white;
+  bottom: calc(100% + 0.25em);
+  left: 0;
+}
+
+.Result > * {
+  margin: 0;
+}
+
+.Result:empty {
+  display: none;
+}
+
+.Result code {
+  color: rgb(133, 200, 255);
+  font-size: 120%;
+}
+
+.Footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 0 1em;
+}
+
+p a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
+p a:hover {
+  border-bottom-style: dashed;
+}
+
+@media (max-width: 600px) {
+  .Button {
+    width: 100%;
+  }
+}

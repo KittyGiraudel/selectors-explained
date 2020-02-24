@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Hugo Giraudel" />
+    <title>Selectors Explained</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="Container">
+      <header role="banner" class="Header">
+        <h1 class="Title">Selectors Explained</h1>
+        <p class="Baseline">
+          Convert
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors"
+            rel="noopener noreferrer"
+            target="_blank"
+            >DOM selectors</a
+          >
+          into plain English.
+        </p>
+      </header>
+
+      <main role="main" class="Main">
+        <form id="form" class="Form" action="/">
+          <label for="selector" class="Label">🤯 Selector</label>
+          <input
+            type="text"
+            name="selector"
+            id="selector"
+            required
+            class="Input"
+            placeholder="e.g. p.foo a[href]"
+            autofocus
+            aria-describedby="result"
+          />
+          <button type="submit" class="Button">Explain ✨</button>
+        </form>
+        <div id="result" class="Result"></div>
+      </main>
+    </div>
+
+    <footer role="contentinfo" class="Footer">
+      <p>
+        &copy; Made with
+        <span role="img" aria-label="love">💖</span> by
+        <a
+          href="https://hugogiraudel.com"
+          rel="noopener noreferrer"
+          target="_blank"
+          >Hugo “Kitty” Giraudel</a
+        >
+        ·
+        <a
+          href="https://github.com/HugoGiraudel/selectors-explained"
+          rel="noopener noreferrer"
+          target="_blank"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+
+    <script src="./bundle.js"></script>
+    <script>
+      const updateQueryParam = value => {
+        const params = new URLSearchParams(window.location.search)
+        if (!value) params.delete('s')
+        else params.set('s', encodeURIComponent(value))
+        history.pushState(null, '', '?' + params.toString())
+      }
+
+      document.addEventListener('DOMContentLoaded', event => {
+        const params = new URLSearchParams(window.location.search)
+        const $form = document.querySelector('#form')
+        const $selector = document.querySelector('#selector')
+        const $result = document.querySelector('#result')
+
+        const displayResults = value => {
+          let results = null
+
+          // Empty the current result container
+          $result.innerHTML = ''
+
+          try {
+            results = explain(value, { html: true })
+          } catch (error) {
+            // Display an error in case of exception and empty the query param
+            const $p = document.createElement('p')
+            $p.innerText = error.message
+            $result.appendChild($p)
+            updateQueryParam('')
+          }
+
+          // Handle a single selector as a paragraph
+          if (results.length === 1) {
+            const $p = document.createElement('p')
+            $p.innerHTML = results[0]
+            $result.appendChild($p)
+          } else {
+            // Handle multiple selectors as an unordered list
+            const $ol = document.createElement('ul')
+            results.forEach(result => {
+              const $li = document.createElement('li')
+              $li.innerHTML = result
+              $ol.appendChild($li)
+            })
+            $result.appendChild($ol)
+          }
+        }
+
+        // Prefill the field with selector from the URL if possible
+        if (params.has('s')) {
+          try {
+            $selector.value = decodeURIComponent(params.get('s'))
+            displayResults($selector.value)
+          } catch (error) {
+            updateQueryParam('')
+          }
+        }
+
+        $form.addEventListener('submit', event => {
+          // Prevent page refresh
+          event.preventDefault()
+          // Update query parameter with selector
+          updateQueryParam($selector.value)
+          // Display the value
+          displayResults($selector.value)
+        })
+      })
+    </script>
+  </body>
+</html>
