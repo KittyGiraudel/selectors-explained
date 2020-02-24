@@ -14,7 +14,7 @@
   "scripts": {
     "bundle": "rollup --config",
     "test": "jest --config jest.config.js",
-    "serve": "npm run bundle && npx serve ui",
-    "deploy": "git push origin `git subtree split --prefix ui master`:gh-pages --force"
+    "serve": "npm run bundle && npx serve dist",
+    "deploy": "git push origin `git subtree split --prefix dist master`:gh-pages --force"
   }
 }

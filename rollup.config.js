@@ -6,7 +6,7 @@ export default {
   input: 'src/index.js',
   output: {
     name: 'explain',
-    file: 'ui/bundle.js',
+    file: 'dist/bundle.js',
     format: 'iife',
   },
   plugins: [commonjs(), resolve(), terser()],
