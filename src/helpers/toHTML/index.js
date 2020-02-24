@@ -11,8 +11,7 @@ const toHTML = value =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     // Wrap emphases with <code> elements for clarity
-    .replace(/‘/g, '<code>')
-    .replace(/’/g, '</code>')
+    .replace(/`([^`]+)`/g, (...args) => `<code>${args[1]}</code>`)
     // Insert line breaks for readability
     .replace(/([^yf]) within/g, (...args) => `${args[1]}<br>… within`)
     .replace(/([^y]) after/g, (...args) => `${args[1]}<br>… after`)

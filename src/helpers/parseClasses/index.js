@@ -1,5 +1,5 @@
 import enumerate from '../enumerate'
-import withQuotes from '../withQuotes'
+import highlight from '../highlight'
 
 export default ({ classNames = [] }) => {
   if (classNames.length === 0) {
@@ -7,8 +7,8 @@ export default ({ classNames = [] }) => {
   }
 
   if (classNames.length === 1) {
-    return 'class ' + withQuotes(classNames[0])
+    return 'class ' + highlight(classNames[0])
   }
 
-  return 'classes ' + enumerate(classNames.map(withQuotes))
+  return 'classes ' + enumerate(classNames.map(highlight))
 }

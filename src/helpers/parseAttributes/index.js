@@ -1,8 +1,8 @@
 import enumerate from '../enumerate'
-import withQuotes from '../withQuotes'
+import highlight from '../highlight'
 
 const explainAttrOperator = attr => {
-  const value = withQuotes(attr.value)
+  const value = highlight(attr.value)
 
   switch (attr.operator) {
     case '=':
@@ -23,8 +23,8 @@ const explainAttrOperator = attr => {
 const explainAttr = attr =>
   'an attribute ' +
   (attr.value
-    ? `${withQuotes(attr.name)} whose value ${explainAttrOperator(attr)}`
-    : withQuotes(attr.name))
+    ? `${highlight(attr.name)} whose value ${explainAttrOperator(attr)}`
+    : highlight(attr.name))
 
 export default ({ attrs = [] }) => {
   if (attrs.length === 0) {

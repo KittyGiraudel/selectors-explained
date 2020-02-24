@@ -1,4 +1,4 @@
-import withQuotes from '../withQuotes'
+import highlight from '../highlight'
 import isPseudoClass from '../isPseudoClass'
 
 export default ({ pseudos = [] }) => {
@@ -7,7 +7,7 @@ export default ({ pseudos = [] }) => {
   )
 
   if (pseudoElement) {
-    return `the ${withQuotes(pseudoElement.name)} pseudo-element of `
+    return `the ${highlight(pseudoElement.name)} pseudo-element of `
   }
 
   return ''

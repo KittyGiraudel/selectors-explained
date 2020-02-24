@@ -1,3 +1,3 @@
-import withQuotes from '../withQuotes'
+import highlight from '../highlight'
 
-export default ({ id }) => (id ? `id ${withQuotes(id)}` : '')
+export default ({ id }) => (id ? `id ${highlight(id)}` : '')
