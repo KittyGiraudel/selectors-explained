@@ -19,7 +19,7 @@ describe('The `enumerate` function', () => {
 })
 
 describe('The `highlight` function', () => {
-  it('should wrap value with backticks quotes', () => {
+  it('should wrap value with curly quotes', () => {
     expect(highlight('foo')).toBe('‘foo’')
   })
 })
