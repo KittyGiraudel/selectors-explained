@@ -1,4 +1,4 @@
-import enumerate from './'
+import { enumerate, highlight } from './'
 
 describe('The `enumerate` function', () => {
   it('should return an empty string for an empty collection', () => {
@@ -15,5 +15,11 @@ describe('The `enumerate` function', () => {
 
   it('should use a comma between other values', () => {
     expect(enumerate(['foo', 'bar', 'baz'])).toBe('foo, bar and baz')
+  })
+})
+
+describe('The `highlight` function', () => {
+  it('should wrap value with backticks quotes', () => {
+    expect(highlight('foo')).toBe('`foo`')
   })
 })

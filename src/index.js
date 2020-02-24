@@ -1,6 +1,5 @@
 export { default as specify } from 'specimen'
-import joinSelectors from './helpers/joinSelectors'
-import getSelectors from './helpers/getSelectors'
+import explainSelector from './helpers/explainSelector'
 import toHTML from './helpers/toHTML'
 
 /**
@@ -10,9 +9,7 @@ import toHTML from './helpers/toHTML'
  * @paren {String}
  */
 export const explain = (selector, options = {}) => {
-  const data = selector
-    .split(/\s*,\s*/g)
-    .map(selector => joinSelectors(getSelectors(selector)))
+  const data = selector.split(/\s*,\s*/g).map(explainSelector)
 
   return options.html ? data.map(toHTML) : data
 }

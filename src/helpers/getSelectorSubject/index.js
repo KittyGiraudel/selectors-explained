@@ -1,6 +1,6 @@
 import { UNIQUE_ELEMENTS } from '../../constants'
 import { parsePseudoElement } from '../parse'
-import highlight from '../highlight'
+import { highlight } from '../utils'
 
 /**
  * Return the selector subject in plain English, taking pseudo-elements into

@@ -1,7 +1,7 @@
 import { PSEUDO_CLASSES } from '../../constants'
-import enumerate from '../enumerate'
-import highlight from '../highlight'
-import isPseudoClass from '../isPseudoClass'
+import { enumerate, highlight } from '../utils'
+
+const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)
 
 /**
  * Explain the pseudo-element in plain English.

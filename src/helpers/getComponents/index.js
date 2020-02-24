@@ -1,7 +1,7 @@
 import { getAST, getDeepestNode, getParentNode } from '../ast'
 
 /**
- * Returns an array of selector nodes as provided by the AST, from the selector
+ * Returns an array of components as provided by the AST, from the selector
  * subject, to the oldest ancestor.
  * @param {String} selector - Single selector (no comma), as a string
  * @returns {Object[]}

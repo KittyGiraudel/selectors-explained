@@ -1,9 +1,5 @@
 import { parseAttributes, parseClasses, parseId } from '../parse'
-
-const asASentence = (acc, item, index) => {
-  if (index === 0) return acc + 'with ' + item
-  else return acc + ' and ' + item
-}
+import { asSentence } from '../utils'
 
 /**
  * Get a selector details, that is how it can be described (ID, classes,
@@ -15,4 +11,4 @@ export default selector =>
   [parseId, parseClasses, parseAttributes]
     .map(fn => fn(selector))
     .filter(Boolean)
-    .reduce(asASentence, '')
+    .reduce(asSentence, '')
