@@ -1,6 +1,6 @@
 import getSelectorSubject from '../getSelectorSubject'
 import getSelectorDetails from '../getSelectorDetails'
-import parsePseudoClasses from '../parsePseudoClasses'
+import { parsePseudoClasses } from '../parse'
 
 /**
  * Explain a selector in plain English, subject, details and context.

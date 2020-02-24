@@ -1,5 +1,5 @@
 import { UNIQUE_ELEMENTS } from '../../constants'
-import parsePseudoElement from '../parsePseudoElement'
+import { parsePseudoElement } from '../parse'
 import highlight from '../highlight'
 
 /**

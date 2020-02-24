@@ -1,6 +1,4 @@
-import parseAttributes from '../parseAttributes'
-import parseClasses from '../parseClasses'
-import parseId from '../parseId'
+import { parseAttributes, parseClasses, parseId } from '../parse'
 
 const asASentence = (acc, item, index) => {
   if (index === 0) return acc + 'with ' + item
