@@ -2,7 +2,9 @@ import enumerate from '../enumerate'
 import highlight from '../highlight'
 
 const explainAttrOperator = attr => {
-  if (!attr.value) return ''
+  if (attr.value === '') {
+    return attr.operator === '=' ? 'whose value is empty' : ''
+  }
 
   const value = highlight(attr.value)
 
