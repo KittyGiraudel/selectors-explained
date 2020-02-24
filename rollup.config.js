@@ -5,7 +5,7 @@ import { terser } from 'rollup-plugin-terser'
 export default {
   input: 'src/index.js',
   output: {
-    name: 'explain',
+    name: 'selector',
     file: 'dist/bundle.js',
     format: 'iife',
   },

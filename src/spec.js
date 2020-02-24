@@ -1,4 +1,4 @@
-import explain from './'
+import { explain } from './'
 
 describe('Basics', () => {
   it('should throw if the given selector is not a string', () => {

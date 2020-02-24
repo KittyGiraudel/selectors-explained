@@ -45,6 +45,7 @@
           <button type="submit" class="Button">Explain ✨</button>
         </form>
         <div id="result" class="Result"></div>
+        <p id="specificity" class="Specificity"></p>
       </main>
     </div>
 
@@ -75,6 +76,7 @@
           form: document.querySelector('#form'),
           input: document.querySelector('#selector'),
           result: document.querySelector('#result'),
+          specificity: document.querySelector('#specificity'),
         },
 
         results: null,
@@ -110,29 +112,54 @@
         clear: function() {
           this.results = null
           this.$.result.innerHTML = ''
+          this.$.specificity.innerHTML = ''
           this.updateQueryParam('')
         },
 
-        create: function(type, value) {
+        create: function(type, value, attrs = {}) {
           const element = document.createElement(type)
           if (value) {
             element.innerHTML = value
           }
+          for (let attr in attrs) {
+            element.setAttribute(attr, attrs[attr])
+          }
           return element
         },
 
+        displaySpecificity: function(specificity) {
+          const isDeep = Array.isArray(specificity[0])
+          const content = isDeep
+            ? specificity.map(item => item.join(', ')).join('; ')
+            : specificity.join(', ')
+          const $link = this.create('a', 'Specificity', {
+            href:
+              'https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity',
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          })
+
+          this.$.specificity.innerHTML = ''
+          this.$.specificity.appendChild(
+            this.create('p', $link.outerHTML + ': ' + content)
+          )
+        },
+
         displayResults: function(value) {
-          this.clear()
+          let specificity = this.clear()
 
           try {
-            this.results = explain(value, { html: true })
+            this.results = selector.explain(value, { html: true })
+            specificity = selector.specify(value)
           } catch (error) {
             this.results = null
+            specificity = null
             this.$.result.appendChild(this.create('p', error.message))
             return
           }
 
           this.updateQueryParam(value)
+          this.displaySpecificity(specificity)
 
           // Handle a single selector as a paragraph
           if (this.results.length === 1) {

@@ -1,3 +1,4 @@
+export { default as specify } from 'specimen'
 import joinSelectors from './helpers/joinSelectors'
 import getSelectors from './helpers/getSelectors'
 import toHTML from './helpers/toHTML'
@@ -8,7 +9,7 @@ import toHTML from './helpers/toHTML'
  * @param {Boolean} options.html - Whether to return formatted HTML
  * @paren {String}
  */
-export default (selector, options = {}) => {
+export const explain = (selector, options = {}) => {
   const data = selector
     .split(/\s*,\s*/g)
     .map(selector => joinSelectors(getSelectors(selector)))
