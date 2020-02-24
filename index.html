@@ -79,6 +79,8 @@
           specificity: document.querySelector('#specificity'),
         },
 
+        options: { format: 'html', links: true, lineBreaks: true },
+
         results: null,
 
         init: function() {
@@ -149,7 +151,7 @@
           let specificity = this.clear()
 
           try {
-            this.results = selector.explain(value, { html: true })
+            this.results = selector.explain(value, this.options)
             specificity = selector.specify(value)
           } catch (error) {
             this.results = null
