@@ -62,8 +62,8 @@ const App = {
   displaySpecificity: function(specificity) {
     const isDeep = Array.isArray(specificity[0])
     const content = isDeep
-      ? specificity.map(item => item.join(', ')).join('; ')
-      : specificity.join(', ')
+      ? specificity.map(item => item.slice(1).join('.')).join(', ')
+      : specificity.slice(1).join('.')
     const $link = this.create('a', 'Specificity', {
       href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity',
       target: '_blank',
