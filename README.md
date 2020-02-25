@@ -6,6 +6,7 @@ A CSS selector to plain English converter.
 
 ```sh
 npm run test [-- --watchAll]
-npm run bundle [-- --watch]
+npm run bundle:ui [-- --watch]
+npm run bundle:lib [-- --watch]
 npm run serve
 ```

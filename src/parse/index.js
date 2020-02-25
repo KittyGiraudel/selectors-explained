@@ -1,4 +1,4 @@
-import { PSEUDO_CLASSES } from '../../constants'
+import { PSEUDO_CLASSES } from '../constants'
 import { enumerate, highlight } from '../utils'
 
 const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)

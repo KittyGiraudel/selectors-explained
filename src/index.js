@@ -1,6 +1,5 @@
-export { default as specify } from 'specimen'
-import explainSelector from './helpers/explainSelector'
-import format from './helpers/format'
+import explainSelector from './explainSelector'
+import format from './format'
 
 /**
  * Explain a DOM selector into plain English.
@@ -10,7 +9,7 @@ import format from './helpers/format'
  * @param {Boolean} options.lineBreaks - Whether to insert line breaks
  * @paren {String}
  */
-export const explain = (selector, options) =>
+export default (selector, options) =>
   selector
     .split(/\s*,\s*/g)
     .map(explainSelector)

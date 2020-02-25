@@ -1,4 +1,4 @@
-import { UNIQUE_ELEMENTS } from '../../constants'
+import { UNIQUE_ELEMENTS } from '../constants'
 import { parsePseudoElement } from '../parse'
 import { highlight } from '../utils'
 
