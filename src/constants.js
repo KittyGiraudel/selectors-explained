@@ -30,6 +30,8 @@ export const PSEUDO_CLASSES = {
   // 'local-link': 'local-link',
   'nth-child': 'the nth child (formula) of its parent',
   'nth-of-type': 'the nth of its type (formula) in its parent',
+  'nth-last-child': 'the nth from the end child (formula) of its parent',
+  'nth-last-of-type': 'the nth from the end of its type (formula) in its parent',
   'only-child': 'the only child of its parent',
   'only-of-type': 'the only of its type in its parent',
   optional: 'optional',
