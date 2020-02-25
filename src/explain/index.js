@@ -1,5 +1,5 @@
-import explainSelector from './explainSelector'
-import format from './format'
+import explainSelector from '../explainSelector'
+import format from '../format'
 
 /**
  * Explain a DOM selector into plain English.

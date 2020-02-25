@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
 export default {
-  input: 'src/index.js',
+  input: 'src/explain/index.js',
   output: {
     file: './selectors-explained.min.js',
     format: 'cjs',

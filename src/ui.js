@@ -1,4 +1,4 @@
-import explain from '../selectors-explained'
+import explain from './explain'
 import { default as specify } from 'specimen'
 
 const App = {

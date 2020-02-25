@@ -1,4 +1,18 @@
-import { linkify, addLineBreaks } from './'
+import format, { linkify, addLineBreaks } from './'
+
+describe('The `format` helper', () => {
+  it('should handle markdown format', () => {
+    expect(format({ format: 'markdown' })('an ‘<a>’ element')).toBe(
+      'An `&lt;a&gt;` element.'
+    )
+  })
+
+  it('should handle HTML format', () => {
+    expect(format({ format: 'html' })('an ‘<a>’ element')).toBe(
+      'An <code>&lt;a&gt;</code> element.'
+    )
+  })
+})
 
 describe('The `linkify` function', () => {
   it('should handle HTML links', () => {

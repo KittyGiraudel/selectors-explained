@@ -8,6 +8,7 @@ const subject = { tagName: 'a', nestingOperator: null, type: 'rule', __id: 1 }
 describe('The `getAST` function', () => {
   it('should throw if selector cannot be parsed', () => {
     expect(() => getAST()).toThrow()
+    expect(() => getAST({})).toThrow()
   })
 
   it('should add incremental ids for back walking', () => {

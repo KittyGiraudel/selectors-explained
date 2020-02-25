@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
 export default {
-  input: 'dist/ui.js',
+  input: 'src/ui.js',
   output: {
     name: 'App',
     file: 'dist/bundle.js',
