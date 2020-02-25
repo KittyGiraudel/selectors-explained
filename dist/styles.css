@@ -38,8 +38,8 @@ body {
 
 .Header {
   text-align: center;
-  padding-bottom: 2em;
-  margin-bottom: 1.25em;
+  padding-bottom: 2.5em;
+  margin-bottom: 1.75em;
   position: relative;
 }
 
@@ -76,7 +76,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  margin: 0 -0.25em 2em;
+  margin: 0 -0.25em 3em;
 }
 
 .Label {
