@@ -223,7 +223,7 @@ describe('Multiple selectors', () => {
 describe('Options', () => {
   it('should handle markdown format', () => {
     expect(explain('a.foo', { format: 'markdown' })[0]).toBe(
-      'An `<a>` element with class `foo`.'
+      'An `&lt;a&gt;` element with class `foo`.'
     )
   })
 

@@ -55,7 +55,11 @@ const toHTML = (value, options) => {
 }
 
 const toMarkdown = (value, options) => {
-  let result = asSentence(value).replace(/[‘’]/g, '`')
+  let result = asSentence(value)
+    .replace(/[‘’]/g, '`')
+    // Make sure tag names are properly displayed and not rendered as HTML
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 
   // Insert line breaks for readability
   if (options.lineBreaks) {
