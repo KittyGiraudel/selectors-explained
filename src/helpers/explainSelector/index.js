@@ -12,7 +12,7 @@ const explainRelationship = ({ nestingOperator }) => {
     case '~':
       return ' after '
     default:
-      return ' within '
+      return ' somewhere within '
   }
 }
 

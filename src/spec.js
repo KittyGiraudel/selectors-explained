@@ -183,30 +183,32 @@ describe('Pseudo-elements', () => {
 
 describe('Combinators', () => {
   it('should handle regular descendance', () => {
-    expect(explain('p a')[0]).toBe('An ‘<a>’ element within a ‘<p>’ element.')
+    expect(explain('p a')[0]).toBe(
+      'An ‘<a>’ element somewhere within a ‘<p>’ element.'
+    )
   })
 
   it('should handle regular descendance', () => {
     expect(explain('#id .foo a')[0]).toBe(
-      'An ‘<a>’ element within an element with class ‘foo’ itself within the element with id ‘id’.'
+      'An ‘<a>’ element somewhere within an element with class ‘foo’ itself somewhere within the element with id ‘id’.'
     )
   })
 
   it('should handle direct descendance', () => {
     expect(explain('.foo p > a')[0]).toBe(
-      'An ‘<a>’ element directly within a ‘<p>’ element itself within an element with class ‘foo’.'
+      'An ‘<a>’ element directly within a ‘<p>’ element itself somewhere within an element with class ‘foo’.'
     )
   })
 
   it('should handle adjacence', () => {
     expect(explain('.foo p ~ a')[0]).toBe(
-      'An ‘<a>’ element after a ‘<p>’ element itself within an element with class ‘foo’.'
+      'An ‘<a>’ element after a ‘<p>’ element itself somewhere within an element with class ‘foo’.'
     )
   })
 
   it('should handle direct adjacence', () => {
     expect(explain('.foo p + a')[0]).toBe(
-      'An ‘<a>’ element directly adjacent to a ‘<p>’ element itself within an element with class ‘foo’.'
+      'An ‘<a>’ element directly adjacent to a ‘<p>’ element itself somewhere within an element with class ‘foo’.'
     )
   })
 })

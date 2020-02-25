@@ -2,7 +2,7 @@ import explainSelector from './'
 
 describe('The `explainSelector` function', () => {
   it('handle regular descendance', () => {
-    expect(explainSelector('.foo .bar')).toContain('within')
+    expect(explainSelector('.foo .bar')).toContain('somewhere within')
   })
 
   it('handle direct descendance', () => {
