@@ -6,7 +6,7 @@ const capitalise = value => value.slice(0, 1).toUpperCase() + value.slice(1)
 
 const asSentence = value => capitalise(value) + '.'
 
-const linkify = format => (label, href) => {
+export const linkify = format => (label, href) => {
   if (format === 'html') {
     return `<a href="${href}" rel="noopener noreferrer" target="_blank">${label}</a>`
   }
@@ -16,6 +16,17 @@ const linkify = format => (label, href) => {
   }
 
   return label
+}
+
+export const addLineBreaks = format => value => {
+  const cr = format === 'html' ? '<br>' : format === 'markdown' ? '  \n' : '\n'
+
+  return value
+    .replace(/([^yf]) within/g, (...args) => `${args[1]}${cr}… within`)
+    .replace(/([^y]) after/g, (...args) => `${args[1]}${cr}… after`)
+    .replace(/([^f]) directly/g, (...args) => `${args[1]}${cr}… directly`)
+    .replace(/element of/g, `element${cr}… of`)
+    .replace(/itself/g, `${cr}… itself`)
 }
 
 const toHTML = (value, options) => {
@@ -28,12 +39,7 @@ const toHTML = (value, options) => {
 
   // Insert line breaks for readability
   if (options.lineBreaks) {
-    result = result
-      .replace(/([^yf]) within/g, (...args) => `${args[1]}<br>… within`)
-      .replace(/([^y]) after/g, (...args) => `${args[1]}<br>… after`)
-      .replace(/([^f]) directly/g, (...args) => `${args[1]}<br>… directly`)
-      .replace(/element of/g, 'element<br>… of')
-      .replace(/itself/g, '<br>… itself')
+    result = addLineBreaks(options.format)(result)
   }
 
   // Add useful links
@@ -50,6 +56,11 @@ const toHTML = (value, options) => {
 
 const toMarkdown = (value, options) => {
   let result = asSentence(value).replace(/[‘’]/g, '`')
+
+  // Insert line breaks for readability
+  if (options.lineBreaks) {
+    result = addLineBreaks(options.format)(result)
+  }
 
   // Add useful links
   if (options.links) {
