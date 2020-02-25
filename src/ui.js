@@ -65,7 +65,7 @@ const App = {
       ? specificity.map(item => item.slice(1).join('.')).join(', ')
       : specificity.slice(1).join('.')
     const $link = this.create('a', 'Specificity', {
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity',
+      href: 'https://polypane.app/css-specificity-calculator/',
       target: '_blank',
       rel: 'noopener noreferrer',
     })
