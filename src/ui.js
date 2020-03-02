@@ -59,13 +59,13 @@ const App = {
     return element
   },
 
-  displaySpecificity: function(specificity) {
+  displaySpecificity: function(specificity, value) {
     const isDeep = Array.isArray(specificity[0])
     const content = isDeep
       ? specificity.map(item => item.slice(1).join('.')).join(', ')
       : specificity.slice(1).join('.')
     const $link = this.create('a', 'Specificity', {
-      href: 'https://polypane.app/css-specificity-calculator/',
+      href: 'https://polypane.app/css-specificity-calculator/#selector=' + encodeURIComponent(value),
       target: '_blank',
       rel: 'noopener noreferrer',
     })
@@ -99,7 +99,7 @@ const App = {
     }
 
     this.updateQueryParam(value)
-    this.displaySpecificity(specificity)
+    this.displaySpecificity(specificity, value)
 
     // Handle a single selector as a paragraph
     if (this.results.length === 1) {
