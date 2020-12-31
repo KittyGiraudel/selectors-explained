@@ -1,24 +1,47 @@
-import { getAST, getDeepestNode, getParentNode } from '../ast'
+import { RELATIONSHIPS, DEFAULT_NODE } from '../constants'
+import { clone } from '../utils'
 
 /**
- * Returns an array of components as provided by the AST, from the selector
- * subject, to the oldest ancestor.
- * @param {String} selector - Single selector (no comma), as a string
+ * Returns an array of components as provided by the css-what AST, from the
+ * selector subject, to the oldest ancestor.
+ * See: https://github.com/fb55/css-what
+ * @param {Object[]} ast - AST of a selector
  * @returns {Object[]}
  */
-export default selector => {
-  // Get the AST for the given selector.
-  const ast = getAST(selector)
-  // Find the deepest node, which is the selector subject.
-  const subject = getDeepestNode(ast)
-  // Build an array of selectors, starting from the subject, and walking up the
-  // tree parent after parent.
-  const selectors = [subject]
-  let parent = null
+export default ast =>
+  ast.reduce(
+    (acc, token) => {
+      const { type, name, value } = token
+      const current = acc[0]
 
-  while ((parent = getParentNode(ast, parent || subject))) {
-    selectors.push(parent)
-  }
+      if (RELATIONSHIPS.includes(type)) {
+        acc.unshift({ ...clone(DEFAULT_NODE), relationship: type })
+        return acc
+      }
 
-  return selectors
-}
+      switch (type) {
+        case 'universal': {
+          current.tagName = '*'
+          break
+        }
+        case 'tag': {
+          current.tagName = name
+          break
+        }
+        case 'attribute': {
+          if (name === 'id') current.id = value
+          else if (name === 'class') current.classes.push(value)
+          else current.attrs.push(token)
+          break
+        }
+        case 'pseudo':
+        case 'pseudo-element': {
+          current.pseudos.push(token)
+          break
+        }
+      }
+
+      return acc
+    },
+    [clone(DEFAULT_NODE)]
+  )
