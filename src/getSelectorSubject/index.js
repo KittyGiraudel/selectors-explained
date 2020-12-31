@@ -5,11 +5,11 @@ import { highlight } from '../utils'
 /**
  * Return the selector subject in plain English, taking pseudo-elements into
  * account.
- * @param {Object} subject - The subject node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
-export default subject => {
-  const { id, tagName } = subject
+export default component => {
+  const { id, tagName } = component
   const tag = tagName && tagName !== '*' ? highlight(`<${tagName}>`) : ''
   const content = [tag, 'element'].filter(Boolean).join(' ')
   const article =
@@ -19,5 +19,5 @@ export default subject => {
       ? 'an'
       : 'a'
 
-  return parsePseudoElement(subject) + article + ' ' + content
+  return parsePseudoElement(component) + article + ' ' + content
 }

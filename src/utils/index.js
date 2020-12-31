@@ -18,3 +18,5 @@ export const asSentence = (acc, item, index) => {
   if (index === 0) return acc + 'with ' + item
   else return acc + ' and ' + item
 }
+
+export const clone = object => JSON.parse(JSON.stringify(object))

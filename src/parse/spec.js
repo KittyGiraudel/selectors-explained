@@ -21,7 +21,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'equals' }],
       })
     ).toBe('an attribute ‘data-foo’ whose value is ‘bar’')
   })
@@ -29,7 +29,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value and the contains operator', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '*=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'any' }],
       })
     ).toBe('an attribute ‘data-foo’ whose value contains ‘bar’')
   })
@@ -37,7 +37,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value and the contains strictly operator', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '~=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'element' }],
       })
     ).toBe(
       'an attribute ‘data-foo’ whose value is a space-separated list of values, one of which is ‘bar’'
@@ -47,7 +47,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value and the contains with hyphen operator', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '|=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'hyphen' }],
       })
     ).toBe(
       'an attribute ‘data-foo’ whose value is an hyphen-separated list of values, one of which is ‘bar’'
@@ -57,7 +57,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value and the starts with operator', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '^=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'start' }],
       })
     ).toBe('an attribute ‘data-foo’ whose value starts with ‘bar’')
   })
@@ -65,7 +65,7 @@ describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector with a value and the ends with operator', () => {
     expect(
       parseAttributes({
-        attrs: [{ name: 'data-foo', value: 'bar', operator: '$=' }],
+        attrs: [{ name: 'data-foo', value: 'bar', action: 'end' }],
       })
     ).toBe('an attribute ‘data-foo’ whose value ends with ‘bar’')
   })
@@ -74,7 +74,7 @@ describe('The `parseAttributes` helper', () => {
     expect(
       parseAttributes({
         attrs: [
-          { name: 'data-foo', value: 'bar', operator: '=' },
+          { name: 'data-foo', value: 'bar', action: 'equals' },
           { name: 'data-bar' },
         ],
       })
@@ -87,21 +87,21 @@ describe('The `parseAttributes` helper', () => {
 describe('The `parseClasses` helper', () => {
   it('should return an empty string for no classes', () => {
     expect(parseClasses({})).toBe('')
-    expect(parseClasses({ classNames: [] })).toBe('')
+    expect(parseClasses({ classes: [] })).toBe('')
   })
 
   it('should handle a single class selector', () => {
-    expect(parseClasses({ classNames: ['foo'] })).toBe('class ‘foo’')
+    expect(parseClasses({ classes: ['foo'] })).toBe('class ‘foo’')
   })
 
   it('should handle 2 class selectors', () => {
-    expect(parseClasses({ classNames: ['foo', 'bar'] })).toBe(
+    expect(parseClasses({ classes: ['foo', 'bar'] })).toBe(
       'classes ‘foo’ and ‘bar’'
     )
   })
 
   it('should handle more than 2 class selectors', () => {
-    expect(parseClasses({ classNames: ['foo', 'bar', 'baz'] })).toBe(
+    expect(parseClasses({ classes: ['foo', 'bar', 'baz'] })).toBe(
       'classes ‘foo’, ‘bar’ and ‘baz’'
     )
   })

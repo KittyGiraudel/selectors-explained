@@ -5,7 +5,7 @@ const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)
 
 /**
  * Explain the pseudo-element in plain English.
- * @param {Object} selector - A selector node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
 export const parsePseudoElement = ({ pseudos = [] }) => {
@@ -22,31 +22,31 @@ export const parsePseudoElement = ({ pseudos = [] }) => {
 
 /**
  * Explain the classe(s) in plain English.
- * @param {Object} selector - A selector node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
-export const parseClasses = ({ classNames = [] }) => {
-  if (classNames.length === 0) {
+export const parseClasses = ({ classes = [] }) => {
+  if (classes.length === 0) {
     return ''
   }
 
-  if (classNames.length === 1) {
-    return 'class ' + highlight(classNames[0])
+  if (classes.length === 1) {
+    return 'class ' + highlight(classes[0])
   }
 
-  return 'classes ' + enumerate(classNames.map(highlight))
+  return 'classes ' + enumerate(classes.map(highlight))
 }
 
 /**
  * Explain the ID in plain English.
- * @param {Object} selector - A selector node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
 export const parseId = ({ id }) => (id ? `id ${highlight(id)}` : '')
 
 /**
  * Explain the pseudo-classes in plain English.
- * @param {Object} selector - A selector node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
 export const parsePseudoClasses = ({ pseudos = [] }) => {
@@ -61,26 +61,27 @@ export const parsePseudoClasses = ({ pseudos = [] }) => {
 
 const explainAttrOperator = attr => {
   if (attr.value === '') {
-    return attr.operator === '=' ? 'whose value is empty' : ''
+    return attr.action === 'equals' ? 'whose value is empty' : ''
   }
 
-  const value = highlight(attr.value)
+  const casing = attr.ignoreCase ? ' (regardless of casing)' : ''
+  const value = highlight(attr.value) + casing
 
-  switch (attr.operator) {
-    case '=':
+  switch (attr.action) {
+    case 'equals':
       return 'whose value is ' + value
-    case '*=':
+    case 'any':
       return 'whose value contains ' + value
-    case '^=':
+    case 'start':
       return 'whose value starts with ' + value
-    case '$=':
+    case 'end':
       return 'whose value ends with ' + value
-    case '~=':
+    case 'element':
       return (
         'whose value is a space-separated list of values, one of which is ' +
         value
       )
-    case '|=':
+    case 'hyphen':
       return (
         'whose value is an hyphen-separated list of values, one of which is ' +
         value
@@ -90,7 +91,7 @@ const explainAttrOperator = attr => {
 
 /**
  * Explain the attribute selector(s) in plain English.
- * @param {Object} selector - A selector node from the AST
+ * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
 export const parseAttributes = ({ attrs = [] }) =>
