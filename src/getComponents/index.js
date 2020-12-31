@@ -1,4 +1,4 @@
-import { RELATIONSHIPS, DEFAULT_NODE } from '../constants'
+import { RELATIONSHIPS, DEFAULT_NODE, PSEUDO_ELEMENTS } from '../constants'
 import { clone } from '../utils'
 
 /**
@@ -34,9 +34,16 @@ export default ast =>
           else current.attrs.push(token)
           break
         }
-        case 'pseudo':
+        case 'pseudo': {
+          if (PSEUDO_ELEMENTS.includes(token.name)) {
+            current.pseudoElements.push(token)
+          } else {
+            current.pseudoClasses.push(token)
+          }
+          break
+        }
         case 'pseudo-element': {
-          current.pseudos.push(token)
+          current.pseudoElements.push(token)
           break
         }
       }

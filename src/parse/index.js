@@ -1,4 +1,4 @@
-import { PSEUDO_CLASSES } from '../constants'
+import { PSEUDO_CLASSES, PSEUDO_ELEMENTS } from '../constants'
 import { enumerate, highlight } from '../utils'
 
 const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)
@@ -8,10 +8,8 @@ const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)
  * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
-export const parsePseudoElement = ({ pseudos = [] }) => {
-  const pseudoElement = pseudos.find(
-    pseudo => pseudo.name !== '' && !isPseudoClass(pseudo)
-  )
+export const parsePseudoElement = ({ pseudoElements = [] }) => {
+  const pseudoElement = pseudoElements[0]
 
   if (pseudoElement) {
     return `the ${highlight(pseudoElement.name)} pseudo-element of `
@@ -49,14 +47,12 @@ export const parseId = ({ id }) => (id ? `id ${highlight(id)}` : '')
  * @param {Object} component - A processed component from the AST
  * @returns {String}
  */
-export const parsePseudoClasses = ({ pseudos = [] }) => {
-  const pseudoClasses = pseudos
+export const parsePseudoClasses = ({ pseudoClasses = [] }) => {
+  const states = pseudoClasses
     .filter(isPseudoClass)
     .map(pseudo => PSEUDO_CLASSES[pseudo.name])
 
-  return pseudoClasses.length > 0
-    ? `provided it is ${enumerate(pseudoClasses)}`
-    : ''
+  return pseudoClasses.length > 0 ? `provided it is ${enumerate(states)}` : ''
 }
 
 const explainAttrOperator = attr => {

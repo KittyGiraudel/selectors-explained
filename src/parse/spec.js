@@ -109,62 +109,60 @@ describe('The `parseClasses` helper', () => {
 
 describe('The `parsePseudoClasses` helper', () => {
   it('should handle :hover', () => {
-    expect(parsePseudoClasses({ pseudos: [{ name: 'hover' }] })).toBe(
+    expect(parsePseudoClasses({ pseudoClasses: [{ name: 'hover' }] })).toBe(
       'provided it is hovered'
     )
   })
 
   it('should handle :active', () => {
-    expect(parsePseudoClasses({ pseudos: [{ name: 'active' }] })).toBe(
+    expect(parsePseudoClasses({ pseudoClasses: [{ name: 'active' }] })).toBe(
       'provided it is active'
     )
   })
 
   it('should handle :focus', () => {
-    expect(parsePseudoClasses({ pseudos: [{ name: 'focus' }] })).toBe(
+    expect(parsePseudoClasses({ pseudoClasses: [{ name: 'focus' }] })).toBe(
       'provided it is focused'
     )
   })
 
   it('should handle :checked', () => {
-    expect(parsePseudoClasses({ pseudos: [{ name: 'checked' }] })).toBe(
+    expect(parsePseudoClasses({ pseudoClasses: [{ name: 'checked' }] })).toBe(
       'provided it is checked'
     )
   })
 
   it('should handle multiple pseudo-classes', () => {
     expect(
-      parsePseudoClasses({ pseudos: [{ name: 'checked' }, { name: 'hover' }] })
+      parsePseudoClasses({
+        pseudoClasses: [{ name: 'checked' }, { name: 'hover' }],
+      })
     ).toBe('provided it is checked and hovered')
   })
 })
 
 describe('The `parsePseudoElement` helper', () => {
   it('should handle ::before', () => {
-    expect(parsePseudoElement({ pseudos: [{ name: 'before' }] })).toBe(
+    expect(parsePseudoElement({ pseudoElements: [{ name: 'before' }] })).toBe(
       'the ‘before’ pseudo-element of '
     )
   })
 
   it('should handle ::after', () => {
-    expect(parsePseudoElement({ pseudos: [{ name: 'after' }] })).toBe(
+    expect(parsePseudoElement({ pseudoElements: [{ name: 'after' }] })).toBe(
       'the ‘after’ pseudo-element of '
     )
   })
 
   it('should handle ::first-line', () => {
-    expect(parsePseudoElement({ pseudos: [{ name: 'first-line' }] })).toBe(
-      'the ‘first-line’ pseudo-element of '
-    )
+    expect(
+      parsePseudoElement({ pseudoElements: [{ name: 'first-line' }] })
+    ).toBe('the ‘first-line’ pseudo-element of ')
   })
 
   it('should handle an arbitrary pseudo-element', () => {
-    expect(parsePseudoElement({ pseudos: [{ name: 'foobar' }] })).toBe(
+    expect(parsePseudoElement({ pseudoElements: [{ name: 'foobar' }] })).toBe(
       'the ‘foobar’ pseudo-element of '
     )
-  })
-
-  it('should not treat pseudo-classes as pseudo-elements', () => {
-    expect(parsePseudoElement({ pseudos: [{ name: 'active' }] })).toBe('')
   })
 })

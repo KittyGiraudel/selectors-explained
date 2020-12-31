@@ -52,6 +52,17 @@ export const PSEUDO_CLASSES = {
   visited: 'visited',
 }
 
+export const PSEUDO_ELEMENTS = [
+  'after',
+  'backdrop',
+  'before',
+  'first-letter',
+  'first-line',
+  'marker',
+  'placeholder',
+  'selection',
+]
+
 export const UNIQUE_ELEMENTS = ['html', 'body', 'head']
 
 export const RELATIONSHIPS = ['descendant', 'child', 'sibling', 'adjacent']
@@ -60,7 +71,8 @@ export const DEFAULT_NODE = {
   attrs: [],
   classes: [],
   id: null,
-  pseudos: [],
+  pseudoClasses: [],
+  pseudoElements: [],
   relationship: null,
   tagName: null,
 }
