@@ -32,7 +32,7 @@ export const PSEUDO_CLASSES = {
   'nth-of-type': 'the nth of its type (formula) in its parent',
   'nth-last-child': 'the nth from the end child (formula) of its parent',
   'nth-last-of-type':
-    'the nth from the end of its type (formula) in its parent',
+    'the nth of its type from the end (formula) in its parent',
   'only-child': 'the only child of its parent',
   'only-of-type': 'the only of its type in its parent',
   optional: 'optional',
@@ -52,16 +52,16 @@ export const PSEUDO_CLASSES = {
   visited: 'visited',
 }
 
-export const PSEUDO_ELEMENTS = [
-  'after',
-  'backdrop',
-  'before',
-  'first-letter',
-  'first-line',
-  'marker',
-  'placeholder',
-  'selection',
-]
+export const PSEUDO_ELEMENTS = {
+  after: '‘after’ pseudo-element',
+  backdrop: 'backdrop',
+  before: '‘before’ pseudo-element',
+  'first-letter': 'first letter',
+  'first-line': 'first line',
+  marker: 'marker',
+  placeholder: 'placeholder',
+  selection: 'highlighted selection',
+}
 
 export const UNIQUE_ELEMENTS = ['html', 'body', 'head']
 
