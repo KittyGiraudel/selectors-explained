@@ -23,6 +23,7 @@ export const PSEUDO_CLASSES = {
   indeterminate: 'indeterminate',
   'in-range': 'in-range',
   invalid: 'invalid',
+  lang: token => (token.data ? `in ‘${token.data}’` : null),
   'last-child': 'the last child of its parent',
   'last-of-type': 'the last of its type in its parent',
   // 'left': 'left',

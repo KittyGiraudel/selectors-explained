@@ -57,6 +57,7 @@ describe('Smoke', () => {
     'p:empty': 'A ‘<p>’ element provided it is empty',
     'p:blank': 'A ‘<p>’ element provided it is blank',
     'p:target': 'A ‘<p>’ element provided it is targeted',
+    'p:lang(en)': 'A ‘<p>’ element provided it is in ‘en’',
     'input:checked': 'An ‘<input>’ element provided it is checked',
     'input:indeterminate': 'An ‘<input>’ element provided it is indeterminate',
     'input:disabled': 'An ‘<input>’ element provided it is disabled',

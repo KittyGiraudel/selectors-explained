@@ -52,9 +52,16 @@ export const parseId = ({ id }) => (id ? `id ${highlight(id)}` : '')
 export const parsePseudoClasses = ({ pseudoClasses = [] }) => {
   const states = pseudoClasses
     .filter(isPseudoClass)
-    .map(pseudo => PSEUDO_CLASSES[pseudo.name])
+    .map(pseudo => {
+      const explanation = PSEUDO_CLASSES[pseudo.name]
 
-  return pseudoClasses.length > 0 ? `provided it is ${enumerate(states)}` : ''
+      return typeof explanation === 'function'
+        ? explanation(pseudo)
+        : explanation
+    })
+    .filter(Boolean)
+
+  return states.length > 0 ? `provided it is ${enumerate(states)}` : ''
 }
 
 const explainAttrOperator = attr => {
