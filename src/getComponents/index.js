@@ -35,7 +35,7 @@ export default ast =>
           break
         }
         case 'pseudo': {
-          if (PSEUDO_ELEMENTS.includes(token.name)) {
+          if (Object.keys(PSEUDO_ELEMENTS).includes(token.name)) {
             current.pseudoElements.push(token)
           } else {
             current.pseudoClasses.push(token)

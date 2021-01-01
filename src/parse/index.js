@@ -9,10 +9,12 @@ const isPseudoClass = ({ name }) => Object.keys(PSEUDO_CLASSES).includes(name)
  * @returns {String}
  */
 export const parsePseudoElement = ({ pseudoElements = [] }) => {
-  const pseudoElement = pseudoElements[0]
+  if (pseudoElements.length) {
+    const { name } = pseudoElements[0]
+    const pseudoElement =
+      PSEUDO_ELEMENTS[name] || `${highlight(name)} pseudo-element`
 
-  if (pseudoElement) {
-    return `the ${highlight(pseudoElement.name)} pseudo-element of `
+    return `the ${pseudoElement} of `
   }
 
   return ''

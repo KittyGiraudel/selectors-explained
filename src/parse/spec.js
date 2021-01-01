@@ -157,7 +157,13 @@ describe('The `parsePseudoElement` helper', () => {
   it('should handle ::first-line', () => {
     expect(
       parsePseudoElement({ pseudoElements: [{ name: 'first-line' }] })
-    ).toBe('the ‘first-line’ pseudo-element of ')
+    ).toBe('the first line of ')
+  })
+
+  it('should handle ::first-letter', () => {
+    expect(
+      parsePseudoElement({ pseudoElements: [{ name: 'first-letter' }] })
+    ).toBe('the first letter of ')
   })
 
   it('should handle an arbitrary pseudo-element', () => {
