@@ -16,19 +16,19 @@ describe('The `format` helper', () => {
 
 describe('The `linkify` function', () => {
   it('should handle HTML links', () => {
-    expect(linkify('html')('Kitty', 'https://hugogiraudel.com')).toBe(
-      '<a href="https://hugogiraudel.com" rel="noopener noreferrer" target="_blank">Kitty</a>'
+    expect(linkify('html')('Kitty', 'https://kittygiraudel.com')).toBe(
+      '<a href="https://kittygiraudel.com" rel="noopener noreferrer" target="_blank">Kitty</a>'
     )
   })
 
   it('should handle Markdown links', () => {
-    expect(linkify('markdown')('Kitty', 'https://hugogiraudel.com')).toBe(
-      '[Kitty](https://hugogiraudel.com)'
+    expect(linkify('markdown')('Kitty', 'https://kittygiraudel.com')).toBe(
+      '[Kitty](https://kittygiraudel.com)'
     )
   })
 
   it('should not output links in raw format', () => {
-    expect(linkify('raw')('Kitty', 'https://hugogiraudel.com')).toBe('Kitty')
+    expect(linkify('raw')('Kitty', 'https://kittygiraudel.com')).toBe('Kitty')
   })
 })
 
