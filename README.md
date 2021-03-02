@@ -1,4 +1,4 @@
-# [Selectors Explained](https://hugogiraudel.github.io/selectors-explained/)
+# [Selectors Explained](https://kittygiraudel.github.io/selectors-explained/)
 
 A CSS selector to plain English translator.
 
