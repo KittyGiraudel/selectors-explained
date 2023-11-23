@@ -2,7 +2,7 @@ import getSelectorSubject from './'
 
 describe('The `getSelectorSubject` function', () => {
   it('should handle the wildcard selector', () => {
-    expect(getSelectorSubject({ tagName: '*' })).toBe('an element')
+    expect(getSelectorSubject({ tagName: '*' })).toBe('all elements')
   })
 
   it('should handle element selectors', () => {

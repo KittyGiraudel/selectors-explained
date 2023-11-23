@@ -16,7 +16,7 @@ describe('Basics', () => {
 describe('Smoke', () => {
   const tests = {
     // Elements
-    '*': 'An element',
+    '*': 'All elements',
     p: 'A ‘<p>’ element',
     a: 'An ‘<a>’ element',
 
