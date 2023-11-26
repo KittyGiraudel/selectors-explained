@@ -20,7 +20,7 @@ export default component => {
       ? 'an'
       : 'a'
   if (tagName === '*') {
-    return `all ${content}s`;
+    return `any ${content}`;
   }
   return parsePseudoElement(component) + article + ' ' + content
 }
