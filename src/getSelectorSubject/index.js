@@ -10,6 +10,7 @@ import { highlight } from '../utils'
  */
 export default component => {
   const { id, tagName } = component
+ 
   const tag = tagName && tagName !== '*' ? highlight(`<${tagName}>`) : ''
   const content = [tag, 'element'].filter(Boolean).join(' ')
   const article =
@@ -18,6 +19,8 @@ export default component => {
       : /^[aeiouy]/.test(content.replace('‘<', ''))
       ? 'an'
       : 'a'
-
+  if (tagName === '*') {
+    return `any ${content}`;
+  }
   return parsePseudoElement(component) + article + ' ' + content
 }
