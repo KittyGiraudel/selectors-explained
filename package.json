@@ -5,7 +5,7 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-jest": "^29.7.0",
     "jest": "^29.3.1",
-    "rollup": "^1.31.1",
+    "rollup": "^3.29.5",
     "rollup-plugin-terser": "^5.3.1"
   },
   "dependencies": {
