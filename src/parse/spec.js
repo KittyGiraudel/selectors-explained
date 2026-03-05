@@ -4,6 +4,7 @@ import {
   parsePseudoClasses,
   parsePseudoElement,
 } from './'
+import * as CSSwhat from 'css-what'
 
 describe('The `parseAttributes` helper', () => {
   it('should handle an attribute selector without value', () => {
@@ -138,6 +139,38 @@ describe('The `parsePseudoClasses` helper', () => {
         pseudoClasses: [{ name: 'checked' }, { name: 'hover' }],
       })
     ).toBe('provided it is checked and hovered')
+  })
+
+  it('should handle :is()', () => {
+    const [[isToken]] = CSSwhat.parse(':is(.foo, .bar)')
+
+    expect(parsePseudoClasses({ pseudoClasses: [isToken] })).toBe(
+      'provided it is matching ‘.foo, .bar’'
+    )
+  })
+
+  it('should handle :where()', () => {
+    const [[whereToken]] = CSSwhat.parse(':where(main nav)')
+
+    expect(parsePseudoClasses({ pseudoClasses: [whereToken] })).toBe(
+      'provided it is matching ‘main nav’ (without adding specificity)'
+    )
+  })
+
+  it('should handle :has()', () => {
+    const [[hasToken]] = CSSwhat.parse(':has(img[alt])')
+
+    expect(parsePseudoClasses({ pseudoClasses: [hasToken] })).toBe(
+      'provided it is having related elements that match ‘img[alt]’'
+    )
+  })
+
+  it('should handle :not()', () => {
+    const [[notToken]] = CSSwhat.parse(':not(.foo)')
+
+    expect(parsePseudoClasses({ pseudoClasses: [notToken] })).toBe(
+      'provided it is not matching ‘.foo’'
+    )
   })
 })
 

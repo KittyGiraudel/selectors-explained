@@ -90,6 +90,10 @@ describe('Smoke', () => {
     'li:nth-last-of-type':
       'A ‘<li>’ element provided it is the nth of its type from the end (formula) in its parent',
 
+    // Functional pseudo-classes
+    'button:not(.primary)':
+      'A ‘<button>’ element provided it is not matching ‘.primary’',
+
     // Pseudo-elements
     'a::before': 'The ‘before’ pseudo-element of an ‘<a>’ element',
     'a::after': 'The ‘after’ pseudo-element of an ‘<a>’ element',

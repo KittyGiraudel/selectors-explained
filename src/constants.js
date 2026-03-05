@@ -1,3 +1,5 @@
+import { highlight, stringifySelectorList } from './utils'
+
 export const PSEUDO_CLASSES = {
   active: 'active',
   'any-link': 'a link (visited or not)',
@@ -51,6 +53,30 @@ export const PSEUDO_CLASSES = {
   'user-invalid': 'user-invalid',
   valid: 'valid',
   visited: 'visited',
+  is: token => {
+    const selector = stringifySelectorList(token.data)
+    return selector
+      ? `matching ${highlight(selector)}`
+      : 'matching at least one selector from a list'
+  },
+  where: token => {
+    const selector = stringifySelectorList(token.data)
+    return selector
+      ? `matching ${highlight(selector)} (without adding specificity)`
+      : 'matching a selector from a specificity-free list'
+  },
+  has: token => {
+    const selector = stringifySelectorList(token.data)
+    return selector
+      ? `having related elements that match ${highlight(selector)}`
+      : 'having related elements that match a selector'
+  },
+  not: token => {
+    const selector = stringifySelectorList(token.data)
+    return selector
+      ? `not matching ${highlight(selector)}`
+      : 'not matching a selector'
+  },
 }
 
 export const PSEUDO_ELEMENTS = {

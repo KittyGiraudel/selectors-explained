@@ -79,15 +79,6 @@ const App = {
   displayResults: function(value) {
     let specificity = this.clear()
 
-    if (value.indexOf(':not(') > -1) {
-      return this.$.result.appendChild(
-        this.create(
-          'p',
-          'The <code>:not()</code> pseudo-class is not supported.'
-        )
-      )
-    }
-
     try {
       this.results = explain(value, this.options)
       specificity = specify(value)

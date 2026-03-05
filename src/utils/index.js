@@ -1,3 +1,5 @@
+import * as CSSwhat from 'css-what'
+ 
 /**
  * Enumerate a list of items by splitting with commas up to the last one, which
  * is announced with ‘and’.
@@ -20,3 +22,15 @@ export const asSentence = (acc, item, index) => {
 }
 
 export const clone = object => JSON.parse(JSON.stringify(object))
+
+export const stringifySelectorList = data => {
+  if (!data) return null
+ 
+  try {
+    const selector = CSSwhat.stringify(data)
+    return selector || null
+  } catch (error) {
+    return null
+  }
+}
+ 
